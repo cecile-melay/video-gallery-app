@@ -1,4 +1,4 @@
-# video-gallery-app
+# Video gallery 0app
 
 ## Mini projet à rendre avant le 31 Janvier (MBDS)
 Vous devrez réaliser, avec un des trois frameworks vus en cours (VueJS, React, Angular 4/5), une application "galerie vidéo" présentant des vidéos YouTube faites par les élèves du MBDS, 30 secondes maximum, présentant le MBDS en entier ou juste une de ses facettes.
