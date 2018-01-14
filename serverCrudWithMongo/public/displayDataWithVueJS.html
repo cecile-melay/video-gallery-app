@@ -1,0 +1,37 @@
+<html lang="fr">
+	<head>
+		<title>CRUD avec Express + MongoDB</title> 
+        <link rel="stylesheet" href="css/styles.css">
+        <meta charset="utf-8" />
+	</head>
+	<body>
+        <a href="index.html">Accueil</a>
+        <a href="displayData.html">Afficher les données avec JS</a>
+
+        <div id="app-7">
+            <ul>
+                <!--
+                Now we provide each todo-item with the todo object
+                it's representing, so that its content can be dynamic.
+                We also need to provide each component with a "key",
+                which will be explained later.
+                -->
+                <todo-item
+                    v-for="item in todos"
+                    v-bind:todo="item"
+                    v-bind:key="item.id">
+                </todo-item>
+            </ul>
+            <button v-on:click="prev()" id="btnPrevious">Précédent</button>
+            <select v-model="selected" v-on:change="updateView">
+                <option disabled value="">no page ?</option>
+                <option v-for="(item, index) in nopages" v-bind:value="item.nopageid">{{item.nopageid}}</option>
+            </select>
+
+            <button v-on:click="next()" id="btnNext">Suivant</button>
+        </div>
+
+        <script src="https://unpkg.com/vue"></script>
+        <script src="js/displayDataWithVueJS.js"></script>
+    </body>
+</html>
