@@ -7,81 +7,8 @@ import StarBorder from 'material-ui/svg-icons/toggle/star-border';
 import FlatButton from 'material-ui/FlatButton';
 import DialogExampleSimple from'./video-dialog';
 
-
-const styles = {
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-  },
-  gridList: {
-    width: 950,
-    height: 450,
-    overflowY: 'auto',
-  },
-};
-
-
-
-
-const tilesData = [
-  {
-    img: 'images/grid-list/00-52-29-429_640.jpg',
-    title: 'Breakfast',
-    author: 'jill111',
-    featured: true,
-  },
-  {
-    img: 'images/grid-list/burger-827309_640.jpg',
-    title: 'Tasty burger',
-    author: 'pashminu',
-  },
-  {
-    img: 'images/grid-list/camera-813814_640.jpg',
-    title: 'Camera',
-    author: 'Danson67',
-  },
-  {
-    img: 'images/grid-list/morning-819362_640.jpg',
-    title: 'Morning',
-    author: 'fancycrave1',
-    featured: true,
-  },
-  {
-    img: 'images/grid-list/hats-829509_640.jpg',
-    title: 'Hats',
-    author: 'Hans',
-  },
-  {
-    img: 'images/grid-list/honey-823614_640.jpg',
-    title: 'Honey',
-    author: 'fancycravel',
-  },
-  {
-    img: 'images/grid-list/vegetables-790022_640.jpg',
-    title: 'Vegetables',
-    author: 'jill111',
-  },
-  {
-    img: 'images/grid-list/water-plant-821293_640.jpg',
-    title: 'Water plant',
-    author: 'BkrmadtyaKarki',
-  },
-];
-
-// Composant fonctionnel
-function Hobby(props) {
-  const liStyle = {
-    backgroundColor: props.index % 2 === 0 ? 'lightpink' : 'red'
-  };
-    return(
-      <li style={liStyle} onClick={() => props.HobbyWasClicked(props.hobbyName)}>
-        {props.hobbyName}
-      </li>
-    )
-}
-
 class App extends Component {
+
   constructor(props) {
     super(props);
 
@@ -94,13 +21,10 @@ class App extends Component {
       input: "",
       hobbyWasDeleted: false
     };
-
-    
-
   }
 
-  handleOpen = () => {
-    this._child.handleOpen();
+  handleOpen = (el) => {
+    this._child.handleOpen(el);
   };
 
   loadData() {
@@ -112,7 +36,7 @@ class App extends Component {
       let data = [];
       console.log(responseJson);
       for (var i=0; i < responseJson.data.length; i++) {
-         data.push(responseJson.data[i].name);
+         data.push(responseJson.data[i]);
       }
       this.setState({
           hobbies:data,
@@ -201,9 +125,9 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.state);
 
-   // 
-
+    //TODO Delete hobby action
     let list = this.state.hobbies.map(
       (el, index) => {
         const liStyle = {
@@ -212,40 +136,25 @@ class App extends Component {
         return <li key={el+index} style={liStyle} index={index} onClick={() => this.removeHobby(el)}>{el}</li>
       }
     );
-
-    
-
-    console.log(this.state);
-
-    let listComponents = this.state.hobbies.map(
-      (el, index) => {
-      
-        return <Hobby key={index} 
-        index={index} 
-        HobbyWasClicked={this.removeHobby.bind(this)}
-        hobbyName={el}/>
-      }
-    );
-
-
     let hobbyDeletedParagraph;
     if(this.state.hobbyWasDeleted) {
       hobbyDeletedParagraph = <p>Hobby Deleted !</p>
     }
 
+    //Example of dynamic style
     const hobbyCounterStyle = {
       color: (this.state.hobbies.length <= 3) ? "green" : "red"
     }
-
     const hobbyCounterClass = (this.state.hobbies.length > 3) ? "redBorder" : ""
+    const customStyle = {
+      display:"none !important"
+    }
+    
     return (
       <MuiThemeProvider>
-     
-   
       <div className="App"> 
 
-      <DialogExampleSimple ref={(child) => { this._child = child; }}></DialogExampleSimple>
-
+      
         <h3>Galerie vidéo MBDS</h3>
         <input onChange={this.inputChanged.bind(this)} 
               type="text" 
@@ -258,7 +167,8 @@ class App extends Component {
           
           <p>Avec composant séparé</p>
 
-
+        
+        <DialogExampleSimple style={customStyle} ref={(child) => { this._child = child; }}></DialogExampleSimple>
           <div style={styles.root}>
     <GridList
       cols={4}
@@ -269,8 +179,8 @@ class App extends Component {
       {this.state.hobbies.map((el, index) => (
 
         <GridTile
-          key={el}
-          title={el}
+          key={el.name}
+          title={el.name}
           actionIcon={<IconButton><StarBorder color="rgb(0, 188, 212)" /></IconButton>}
           titleStyle={styles.titleStyle}
           actionPosition="left"
@@ -278,19 +188,16 @@ class App extends Component {
           titleBackground="linear-gradient(to bottom, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)"
           cols={1}
           rows={1}
-          onClick={this.handleOpen}
+          
         >
-        
-          <img src={"images/grid-list/honey-823614_640.jpg"} />
+     
+          <img onClick={(e) => this.handleOpen(el, e)} src={"images/grid-list/honey-823614_640.jpg"} />
           
         </GridTile>
         
       ))}
     </GridList>
-    </div>
-
-          
-         
+    </div>        
           <button onClick={this.prevPage.bind(this)}>Précédent</button>
           <button onClick={this.nextPage.bind(this)}>Suivant</button>
        </div>
@@ -298,5 +205,19 @@ class App extends Component {
     );
   }
 }
+
+//Grid List Style
+const styles = {
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+  },
+  gridList: {
+    width: 950,
+    height: 450,
+    overflowY: 'auto',
+  },
+};
 
 export default App;
