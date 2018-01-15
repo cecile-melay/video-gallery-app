@@ -5,7 +5,24 @@ import {GridList, GridTile} from 'material-ui/GridList';
 import IconButton from 'material-ui/IconButton';
 import StarBorder from 'material-ui/svg-icons/toggle/star-border';
 import FlatButton from 'material-ui/FlatButton';
-import DialogExampleSimple from'./video-dialog';
+import RaisedButton from 'material-ui/RaisedButton';
+import AppBar from 'material-ui/AppBar';
+import Drawer from 'material-ui/Drawer';
+import Paper from 'material-ui/Paper';
+import Menu from 'material-ui/Menu';
+import MenuItem from 'material-ui/MenuItem';
+import RemoveRedEye from 'material-ui/svg-icons/image/remove-red-eye';
+import PersonAdd from 'material-ui/svg-icons/social/person-add';
+import ContentLink from 'material-ui/svg-icons/content/link';
+import Divider from 'material-ui/Divider';
+import ContentCopy from 'material-ui/svg-icons/content/content-copy';
+import Download from 'material-ui/svg-icons/file/file-download';
+import Delete from 'material-ui/svg-icons/action/delete';
+import FontIcon from 'material-ui/FontIcon';
+
+
+import VideoDialog from'./video-dialog';
+import AddVideoDialog from'./add-video-dialog'; 
 
 class App extends Component {
 
@@ -16,6 +33,7 @@ class App extends Component {
     
     this.state = {
       hobbies : [],
+      open: false,
       pageState : 0,
       selected: 1,
       input: "",
@@ -23,8 +41,14 @@ class App extends Component {
     };
   }
 
-  handleOpen = (el) => {
-    this._child.handleOpen(el);
+  handleToggle = () => this.setState({open: !this.state.open});
+
+  openVideoDialog = (el) => {
+    this._videoDialog.handleOpen(el);
+  };
+
+  openAddVideoDialogForm = (el) => {
+    this._addVideoDialog.handleOpen(el);
   };
 
   loadData() {
@@ -146,29 +170,31 @@ class App extends Component {
       color: (this.state.hobbies.length <= 3) ? "green" : "red"
     }
     const hobbyCounterClass = (this.state.hobbies.length > 3) ? "redBorder" : ""
+
+    //TODO
     const customStyle = {
       display:"none !important"
     }
     
     return (
       <MuiThemeProvider>
-      <div className="App"> 
+      <div className="App">
 
-      
-        <h3>Galerie vidéo MBDS</h3>
-        <input onChange={this.inputChanged.bind(this)} 
-              type="text" 
-              value={this.state.input}
-              placeholder="URL de la vidéo"/>
-          <button onClick={this.addHobby.bind(this)}>Ajouter une vidéo</button>
+        <AppBar
+    title="Galerie vidéo MBDS"
+    iconClassNameRight="muidocs-icon-navigation-expand-more"
+    onClick={this.handleToggle}
+  /> 
+
+<div class="content">
+          
+          <RaisedButton style={styles.addvideo} label="Ajouter une vidéo" onClick={this.openAddVideoDialogForm} />
           {hobbyDeletedParagraph}
-          <p style={hobbyCounterStyle} className={hobbyCounterClass}> Hobbies : {this.state.hobbies.length}</p>
+          <p style={hobbyCounterStyle} className={hobbyCounterClass}>{this.state.hobbies.length} vidéos</p>
+
 
           
-          <p>Avec composant séparé</p>
-
         
-        <DialogExampleSimple style={customStyle} ref={(child) => { this._child = child; }}></DialogExampleSimple>
           <div style={styles.root}>
     <GridList
       cols={4}
@@ -191,7 +217,7 @@ class App extends Component {
           
         >
      
-          <img onClick={(e) => this.handleOpen(el, e)} src={"images/grid-list/honey-823614_640.jpg"} />
+          <img onClick={(e) => this.openVideoDialog(el, e)} src={"images/grid-list/honey-823614_640.jpg"} />
           
         </GridTile>
         
@@ -200,8 +226,30 @@ class App extends Component {
     </div>        
           <button onClick={this.prevPage.bind(this)}>Précédent</button>
           <button onClick={this.nextPage.bind(this)}>Suivant</button>
+          </div>
        </div>
+
+
+       <VideoDialog ref={(videoDialog) => { this._videoDialog = videoDialog; }}></VideoDialog>
+       <AddVideoDialog ref={(addVideoDialog) => { this._addVideoDialog = addVideoDialog; }}></AddVideoDialog>
+
+       <Drawer
+       docked={false}
+       width={300}
+       open={this.state.open}
+       onRequestChange={(open) => this.setState({open})}
+     >
+      <MenuItem onClick={this.handleClose}>Consignes du projet</MenuItem>
+      <MenuItem onClick={this.handleClose} >Etat du Projet</MenuItem>
+    <MenuItem onClick={this.handleClose} leftIcon={<ContentLink /> }>Projet Github</MenuItem>
+       <MenuItem onClick={this.handleClose} leftIcon={<ContentLink /> } >Master 2 MBDS</MenuItem>
+       <MenuItem onClick={this.handleClose} leftIcon={<ContentLink /> } >Master 2 MIAGE</MenuItem>
+     </Drawer>
+
        </MuiThemeProvider>
+
+
+
     );
   }
 }
@@ -217,6 +265,15 @@ const styles = {
     width: 950,
     height: 450,
     overflowY: 'auto',
+  },
+  hide : {
+    display: 'none',
+  },
+  addvideo:{
+    margin: 'auto',
+    width: '200px',
+    display:'block',
+    marginTop:'50px',
   },
 };
 

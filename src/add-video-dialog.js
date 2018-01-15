@@ -2,9 +2,10 @@ import React from 'react';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
 
 
-export default class VideoDialog extends React.Component {
+export default class AddVideoDialog extends React.Component {
 
   //Declare global variable
     state = {
@@ -34,11 +35,16 @@ export default class VideoDialog extends React.Component {
   
     render() {
 
-        console.log(this.state.video);
+       
 
       const actions = [
         <FlatButton
-          label="OK"
+          label="Annuler"
+          primary={true}
+          onClick={this.handleClose}
+        />,
+        <FlatButton
+          label="Envoyer"
           primary={true}
           keyboardFocused={true}
           onClick={this.handleClose}
@@ -49,17 +55,27 @@ export default class VideoDialog extends React.Component {
         <div>
           
           <Dialog
-            title={this.state.video.name}
+            title="Ajouter une vidéo"
             actions={actions}
             modal={false}
             open={this.state.open}
             onRequestClose={this.handleClose}
           >
-      
-           {this.state.details.description}
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/cW7yK0fCl4Y" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-          </Dialog>
+
+          
+
+        <TextField hintText="Nom"  /><br/>
+        <TextField hintText="Description" /><br/>
+        <TextField hintText="Votre nom ou pseudo" /><br/>
+        <TextField  hintText="URL de la vidéo avec (lien embed)"  /><br/>
+            
+            </Dialog>
         </div>
       );
     }
   }
+
+//   <input
+//   type="text" 
+//   value={this.state.input}
+//   placeholder="URL de la vidéo"/>
