@@ -16,12 +16,15 @@ export default class UpdateVideoDialog extends React.Component {
       name:'',
       user:'',
       url:'',
+      id:0,
     };
 
     /**
      * Open Dialog
      */
     handleOpen = (el) => {
+        console.log(el);
+        this.state.id = el._id;
       this.state.video = el;
       this.state.name = el.name;
       this.state.user = el.user;
@@ -44,7 +47,8 @@ export default class UpdateVideoDialog extends React.Component {
      * send data to the serverCrudWithMongo.js
      */
     handleSubmit = () => {
-      fetch('http://localhost:8080/api/addvideo', {
+        console.log("hi");
+      fetch('http://localhost:8080/api/videos/:'+this.state.id, {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -69,12 +73,12 @@ export default class UpdateVideoDialog extends React.Component {
         <FlatButton
           label="Annuler"
           primary={true}
-          onClick={this.handleSubmit}
+          onClick={this.handleClose}
         />,
         <FlatButton
         label="Valider"
         primary={true}
-        onClick={this.handleClose}
+        onClick={this.handleSubmit}
       />,
       ];
   
@@ -88,10 +92,10 @@ export default class UpdateVideoDialog extends React.Component {
             onRequestClose={this.handleClose}        
           >
             <form onSubmit={this.handleSubmit}>
-                <TextField type="text" value={this.state.name}  hintText="Nom"  /><br/>
-                <TextField type="text" value={this.state.description}  hintText="Description" /><br/>
-                <TextField type="text" value={this.state.user}  hintText="Votre nom ou pseudo" /><br/>
-                <TextField type="text" value={this.state.url}  hintText="URL de la vidéo avec (lien embed)"  /><br/>
+                <TextField type="text" defaultValue={this.state.name}  hintText="Nom"  /><br/>
+                <TextField type="text" defaultValue={this.state.description}  hintText="Description" /><br/>
+                <TextField type="text" defaultValue={this.state.user}  hintText="Votre nom ou pseudo" /><br/>
+                <TextField type="text" defaultValue={this.state.url}  hintText="URL de la vidéo avec (lien embed)"  /><br/>
             </form>            
           </Dialog>
         </div>

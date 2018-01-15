@@ -8,15 +8,24 @@ import TextField from 'material-ui/TextField';
 
 export default class AddVideoDialog extends React.Component {
 
-  //Declare global variable
-    state = {
+  constructor(props) {
+    super(props);
+    
+     //Declare global variable
+    this.state = {
       open: false,
       video: [],
-      details: [],
+      details: {description:''},
       name:'Flume - Never Be Like You feat. Kai',
       user:'Cécile',
       url:'https://www.youtube.com/embed/Ly7uj0JwgKg',
+      description:'',
     };
+  }
+
+
+ 
+    
 
     /**
      * Open Dialog
@@ -79,10 +88,10 @@ export default class AddVideoDialog extends React.Component {
             onRequestClose={this.handleClose}        
           >
             <form onSubmit={this.handleSubmit}>
-                <TextField type="text" value={this.state.name}  hintText="Nom"  /><br/>
-                <TextField type="text" value={this.state.description}  hintText="Description" /><br/>
-                <TextField type="text" value={this.state.user}  hintText="Votre nom ou pseudo" /><br/>
-                <TextField type="text" value={this.state.url}  hintText="URL de la vidéo avec (lien embed)"  /><br/>
+                <TextField type="text" defaultValue={this.state.name}  hintText="Nom"  /><br/>
+                <TextField type="text" defaultValue={this.state.description}  hintText="Description" /><br/>
+                <TextField type="text" defaultValue={this.state.user}  hintText="Votre nom ou pseudo" /><br/>
+                <TextField type="text" defaultValue={this.state.url}  hintText="URL de la vidéo avec (lien embed)"  /><br/>
             </form>            
           </Dialog>
         </div>

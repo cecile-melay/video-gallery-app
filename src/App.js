@@ -204,7 +204,7 @@ class App extends Component {
                 cols={1}
                 rows={1}             
               >
-              <img onClick={(e) => this.openVideoDialog(el, e)} src={"images/grid-list/honey-823614_640.jpg"} />
+              <img onClick={(e) => this.openVideoDialog(el, e)} src={"images/grid-list/youtube_blog.png"} />
               </GridTile> 
               ))}
             </GridList>

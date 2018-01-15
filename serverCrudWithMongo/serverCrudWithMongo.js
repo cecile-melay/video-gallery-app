@@ -124,7 +124,7 @@ app.post('/api/addvideo', multerData.fields([]), function(req, res) {
 
 // Modification d'un restaurant, on fera l'update par
 // une requÃªte http PUT, c'est le standard REST
-app.put('/api/restaurants/:id', multerData.fields([]), function(req, res) {
+app.put('/api/videos/:id', multerData.fields([]), function(req, res) {
 	var id = req.params.id;
 
  	mongoDBModule.updateRestaurant(id, req.body, function(data) {
