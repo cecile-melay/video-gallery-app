@@ -76,7 +76,10 @@ exports.createRestaurant = function(formData, callback) {
 	    if(!err) {
 	 
 			let toInsert = {
-				name : formData.name, 
+				name : formData.name,
+				user : formData.user, 
+				url : formData.url, 
+				details : formData.details,  
 			};
 			console.dir(JSON.stringify(toInsert));
 		    db.collection("videos")

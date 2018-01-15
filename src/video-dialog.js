@@ -6,11 +6,11 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 export default class VideoDialog extends React.Component {
 
-  //Declare global variable
+    //Declare global variable
     state = {
       open: false,
       video: [],
-      details: []
+      details: {description:'Aucune description'}
     };
 
     /**
@@ -18,10 +18,18 @@ export default class VideoDialog extends React.Component {
      */
     handleOpen = (el) => {
 
-        this.state.video = el;
+      //Initialise video data
+      this.state.video = [];
+      this.state.details = {description:'Aucune description'}
+      
+      //Set video data content for the video to display
+      this.state.video = el;
 
-        //get data of video with deep 2 for access in the render method
-        this.state.details = el.details;
+      //get data of video with deep 2 for access in the render method
+      if (el.details.description) {
+        this.state.details.description = el.details.description;
+      }
+        
       this.setState({open: true});
     };
   
@@ -33,9 +41,6 @@ export default class VideoDialog extends React.Component {
     };
   
     render() {
-
-        console.log(this.state.video);
-
       const actions = [
         <FlatButton
           label="OK"
@@ -43,21 +48,18 @@ export default class VideoDialog extends React.Component {
           keyboardFocused={true}
           onClick={this.handleClose}
         />,
-      ];
-  
+      ]; 
       return (
-        <div>
-          
+        <div>       
           <Dialog
             title={this.state.video.name}
             actions={actions}
             modal={false}
             open={this.state.open}
             onRequestClose={this.handleClose}
-          >
-      
-           {this.state.details.description}
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/cW7yK0fCl4Y" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          >    
+            {this.state.details.description}
+            <iframe width="560" height="315" src={this.state.video.url} frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
           </Dialog>
         </div>
       );

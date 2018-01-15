@@ -148,9 +148,7 @@ class App extends Component {
     });      
   }
 
-  render() {
-    console.log(this.state);
-
+  render() {;
     //TODO Delete hobby action
     let list = this.state.hobbies.map(
       (el, index) => {
@@ -170,91 +168,81 @@ class App extends Component {
       color: (this.state.hobbies.length <= 3) ? "green" : "red"
     }
     const hobbyCounterClass = (this.state.hobbies.length > 3) ? "redBorder" : ""
-
-    //TODO
-    const customStyle = {
-      display:"none !important"
-    }
     
     return (
       <MuiThemeProvider>
-      <div className="App">
+        <div className="App">
 
         <AppBar
-    title="Galerie vidéo MBDS"
-    iconClassNameRight="muidocs-icon-navigation-expand-more"
-    onClick={this.handleToggle}
-  /> 
+          title="Galerie vidéo MBDS"
+          iconClassNameRight="muidocs-icon-navigation-expand-more"
+          onClick={this.handleToggle}
+        /> 
 
-<div class="content">
-          
+        <div class="content">       
           <RaisedButton style={styles.addvideo} label="Ajouter une vidéo" onClick={this.openAddVideoDialogForm} />
           {hobbyDeletedParagraph}
           <p style={hobbyCounterStyle} className={hobbyCounterClass}>{this.state.hobbies.length} vidéos</p>
-
-
-          
-        
           <div style={styles.root}>
-    <GridList
-      cols={4}
-      cellHeight={200}
-      padding={1}
-      style={styles.gridList}
-    >
-      {this.state.hobbies.map((el, index) => (
-
-        <GridTile
-          key={el.name}
-          title={el.name}
-          actionIcon={<IconButton><StarBorder color="rgb(0, 188, 212)" /></IconButton>}
-          titleStyle={styles.titleStyle}
-          actionPosition="left"
-          titlePosition="top"
-          titleBackground="linear-gradient(to bottom, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)"
-          cols={1}
-          rows={1}
-          
-        >
-     
-          <img onClick={(e) => this.openVideoDialog(el, e)} src={"images/grid-list/honey-823614_640.jpg"} />
-          
-        </GridTile>
-        
-      ))}
-    </GridList>
-    </div>        
-          <button onClick={this.prevPage.bind(this)}>Précédent</button>
-          <button onClick={this.nextPage.bind(this)}>Suivant</button>
+            <GridList
+              cols={4}
+              cellHeight={200}
+              padding={1}
+              style={styles.gridList}
+            >
+              {this.state.hobbies.map((el, index) => (
+              <GridTile
+                key={el.name}
+                title={el.name}
+                actionIcon={<IconButton><StarBorder color="rgb(0, 188, 212)" /></IconButton>}
+                titleStyle={styles.titleStyle}
+                actionPosition="left"
+                titlePosition="top"
+                titleBackground="linear-gradient(to bottom, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)"
+                cols={1}
+                rows={1}             
+              >
+              <img onClick={(e) => this.openVideoDialog(el, e)} src={"images/grid-list/honey-823614_640.jpg"} />
+              </GridTile> 
+              ))}
+            </GridList>
           </div>
-       </div>
+          <RaisedButton label="Précédent" primary={true}  onClick={this.prevPage.bind(this)} />
+          <RaisedButton style={styles.marginLeft} label="Suivant" primary={true}  onClick={this.nextPage.bind(this)} />         
+        </div>
+      </div>
 
+      <VideoDialog ref={(videoDialog) => { this._videoDialog = videoDialog; }}></VideoDialog>
+      <AddVideoDialog ref={(addVideoDialog) => { this._addVideoDialog = addVideoDialog; }}></AddVideoDialog>
+      
+      <Drawer
+      docked={false}
+      width={300}
+      open={this.state.open}
+      onRequestChange={(open) => this.setState({open})}
+      >
+      <div class="content">
+        <h1>Bienvenue</h1>
+        <h3>sur l'appli de présentation du MBDS en vidéo !</h3>
+      </div>
+        <MenuItem onClick={this.handleClose}>Consignes du projet</MenuItem>
+        <MenuItem onClick={this.handleClose}  >Etat du Projet</MenuItem>
+        <MenuItem onClick={this.handleClose} rightIcon={<ContentLink /> }>Projet Github</MenuItem>
+        <MenuItem onClick={this.handleClose} rightIcon={<ContentLink /> } >Master 2 MBDS</MenuItem>
+        <MenuItem onClick={this.handleClose} rightIcon={<ContentLink /> } >Master 2 MIAGE</MenuItem>
+      </Drawer>
 
-       <VideoDialog ref={(videoDialog) => { this._videoDialog = videoDialog; }}></VideoDialog>
-       <AddVideoDialog ref={(addVideoDialog) => { this._addVideoDialog = addVideoDialog; }}></AddVideoDialog>
-
-       <Drawer
-       docked={false}
-       width={300}
-       open={this.state.open}
-       onRequestChange={(open) => this.setState({open})}
-     >
-      <MenuItem onClick={this.handleClose}>Consignes du projet</MenuItem>
-      <MenuItem onClick={this.handleClose} >Etat du Projet</MenuItem>
-    <MenuItem onClick={this.handleClose} leftIcon={<ContentLink /> }>Projet Github</MenuItem>
-       <MenuItem onClick={this.handleClose} leftIcon={<ContentLink /> } >Master 2 MBDS</MenuItem>
-       <MenuItem onClick={this.handleClose} leftIcon={<ContentLink /> } >Master 2 MIAGE</MenuItem>
-     </Drawer>
-
-       </MuiThemeProvider>
-
-
-
-    );
+    </MuiThemeProvider>);
   }
+
+
+
+//End of App
 }
 
-//Grid List Style
+/**
+ * App style css
+ */
 const styles = {
   root: {
     display: 'flex',
@@ -275,6 +263,9 @@ const styles = {
     display:'block',
     marginTop:'50px',
   },
+  marginLeft:{
+    marginLeft:'10px',
+  }
 };
 
 export default App;

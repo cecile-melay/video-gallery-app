@@ -13,18 +13,18 @@ export default class AddVideoDialog extends React.Component {
       open: false,
       video: [],
       details: [],
-      name:"hello",
+      name:'Flume - Never Be Like You feat. Kai',
+      user:'Cécile',
+      url:'https://www.youtube.com/embed/Ly7uj0JwgKg',
     };
 
     /**
      * Open Dialog
      */
     handleOpen = (el) => {
-
-        this.state.video = el;
-
-        //get data of video with deep 2 for access in the render method
-        this.state.details = el.details;
+      this.state.video = el;
+      //get data of video with deep 2 for access in the render method
+      this.state.details = el.details;
       this.setState({open: true});
     };
   
@@ -35,31 +35,27 @@ export default class AddVideoDialog extends React.Component {
       this.setState({open: false});
     };
 
+    /**
+     * Create new video 
+     * send data to the serverCrudWithMongo.js
+     */
     handleSubmit = () => {
-        
-        console.log(this.state.name);
-
-        fetch('http://localhost:8080/api/addvideo', {
-          method: 'POST',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            name: this.state.name,
-            description: '',
-            user:'',
-            url: 'yourOtherValue',
-          })
+      fetch('http://localhost:8080/api/addvideo', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: this.state.name,
+          details: {description:this.state.description},
+          user:this.state.user,
+          url: this.state.url,
         })
-
-      }
-    
+      })
+    }  
   
     render() {
-
-       
-
       const actions = [      
         <FlatButton
           label="Envoyer"
@@ -74,31 +70,21 @@ export default class AddVideoDialog extends React.Component {
       ];
   
       return (
-        <div>
-          
+        <div>         
           <Dialog
             title="Ajouter une vidéo"
             actions={actions}
             modal={false}
             open={this.state.open}
-            onRequestClose={this.handleClose}
-           
+            onRequestClose={this.handleClose}        
           >
-
-
-        <form onSubmit={this.handleSubmit}>
-            <TextField type="text" value={this.state.name}  hintText="Nom"  /><br/>
-            <TextField type="text" value={this.state.description}  hintText="Description" /><br/>
-            <TextField type="text" value={this.state.user}  hintText="Votre nom ou pseudo" /><br/>
-            <TextField type="text" value={this.state.url}  hintText="URL de la vidéo avec (lien embed)"  /><br/>
-            <input type="submit" value="Submit" />
-        </form>
-
-          
-
-       
-            
-            </Dialog>
+            <form onSubmit={this.handleSubmit}>
+                <TextField type="text" value={this.state.name}  hintText="Nom"  /><br/>
+                <TextField type="text" value={this.state.description}  hintText="Description" /><br/>
+                <TextField type="text" value={this.state.user}  hintText="Votre nom ou pseudo" /><br/>
+                <TextField type="text" value={this.state.url}  hintText="URL de la vidéo avec (lien embed)"  /><br/>
+            </form>            
+          </Dialog>
         </div>
       );
     }
