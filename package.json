@@ -5,6 +5,7 @@
   "dependencies": {
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
+    "react-font-icon": "^1.0.0",
     "react-scripts": "1.0.17",
     "rebase": "^0.3.0"
   },
