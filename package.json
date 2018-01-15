@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "google-auth-library": "^1.0.0",
+    "googleapis": "^24.0.0",
     "material-ui": "^0.20.0",
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
