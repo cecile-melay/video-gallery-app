@@ -17,7 +17,6 @@ exports.findRestaurants = function(page, pagesize, callback) {
     	    console.log("page = " + pagesize);
 
         if(!err){
-			console.log(db.collection('videos').find());
             db.collection('videos')
             .find()
             // .skip(page*pagesize)
@@ -77,8 +76,7 @@ exports.createRestaurant = function(formData, callback) {
 	    if(!err) {
 	 
 			let toInsert = {
-				name : formData.nom, 
-				cuisine : formData.cuisine
+				name : formData.name, 
 			};
 			console.dir(JSON.stringify(toInsert));
 		    db.collection("videos")

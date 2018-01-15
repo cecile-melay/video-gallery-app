@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -11,7 +12,8 @@ export default class AddVideoDialog extends React.Component {
     state = {
       open: false,
       video: [],
-      details: []
+      details: [],
+      name:"hello",
     };
 
     /**
@@ -32,23 +34,43 @@ export default class AddVideoDialog extends React.Component {
     handleClose = () => {
       this.setState({open: false});
     };
+
+    handleSubmit = () => {
+        
+        console.log(this.state.name);
+
+        fetch('http://localhost:8080/api/addvideo', {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name: this.state.name,
+            description: '',
+            user:'',
+            url: 'yourOtherValue',
+          })
+        })
+
+      }
+    
   
     render() {
 
        
 
-      const actions = [
-        <FlatButton
-          label="Annuler"
-          primary={true}
-          onClick={this.handleClose}
-        />,
+      const actions = [      
         <FlatButton
           label="Envoyer"
           primary={true}
-          keyboardFocused={true}
-          onClick={this.handleClose}
+          onClick={this.handleSubmit}
         />,
+        <FlatButton
+        label="OK"
+        primary={true}
+        onClick={this.handleClose}
+      />,
       ];
   
       return (
@@ -60,14 +82,21 @@ export default class AddVideoDialog extends React.Component {
             modal={false}
             open={this.state.open}
             onRequestClose={this.handleClose}
+           
           >
+
+
+        <form onSubmit={this.handleSubmit}>
+            <TextField type="text" value={this.state.name}  hintText="Nom"  /><br/>
+            <TextField type="text" value={this.state.description}  hintText="Description" /><br/>
+            <TextField type="text" value={this.state.user}  hintText="Votre nom ou pseudo" /><br/>
+            <TextField type="text" value={this.state.url}  hintText="URL de la vidéo avec (lien embed)"  /><br/>
+            <input type="submit" value="Submit" />
+        </form>
 
           
 
-        <TextField hintText="Nom"  /><br/>
-        <TextField hintText="Description" /><br/>
-        <TextField hintText="Votre nom ou pseudo" /><br/>
-        <TextField  hintText="URL de la vidéo avec (lien embed)"  /><br/>
+       
             
             </Dialog>
         </div>
