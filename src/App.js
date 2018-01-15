@@ -20,9 +20,11 @@ import Download from 'material-ui/svg-icons/file/file-download';
 import Delete from 'material-ui/svg-icons/action/delete';
 import FontIcon from 'material-ui/FontIcon';
 
-
-import VideoDialog from'./video-dialog';
-import AddVideoDialog from'./add-video-dialog'; 
+/**
+ * Custom react component
+ */
+import VideoDialog from'./video-dialog.component';
+import AddVideoDialog from'./add-video-dialog.component'; 
 
 class App extends Component {
 

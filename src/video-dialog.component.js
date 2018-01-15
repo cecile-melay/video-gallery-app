@@ -3,6 +3,11 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 
+/**
+ * Custom react component
+ */
+import UpdateVideoDialog from'./update-video-dialog.component';
+
 
 export default class VideoDialog extends React.Component {
 
@@ -40,14 +45,26 @@ export default class VideoDialog extends React.Component {
       this.setState({open: false});
     };
   
+    /**
+     * Open dialog to update 
+     * the current selected video
+     */
+    openUpdateVideoDialog = (el) => {
+      this._updateVideoDialog.handleOpen(el);
+    };
+
     render() {
       const actions = [
         <FlatButton
           label="OK"
           primary={true}
-          keyboardFocused={true}
           onClick={this.handleClose}
         />,
+        <FlatButton
+        label="Modifier"
+        primary={true}
+        onClick={(e) => this.openUpdateVideoDialog(this.state.video, e)}
+      />,
       ]; 
       return (
         <div>       
@@ -61,6 +78,9 @@ export default class VideoDialog extends React.Component {
             {this.state.details.description}
             <iframe width="560" height="315" src={this.state.video.url} frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
           </Dialog>
+
+          <UpdateVideoDialog ref={(updateVideoDialog) => { this._updateVideoDialog = updateVideoDialog; }}></UpdateVideoDialog>
+
         </div>
       );
     }
