@@ -1,30 +1,15 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {GridList, GridTile} from 'material-ui/GridList';
 import IconButton from 'material-ui/IconButton';
 import StarBorder from 'material-ui/svg-icons/toggle/star-border';
-import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
-import Paper from 'material-ui/Paper';
-import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
-import RemoveRedEye from 'material-ui/svg-icons/image/remove-red-eye';
-import PersonAdd from 'material-ui/svg-icons/social/person-add';
 import ContentLink from 'material-ui/svg-icons/content/link';
-import Divider from 'material-ui/Divider';
-import ContentCopy from 'material-ui/svg-icons/content/content-copy';
-import Download from 'material-ui/svg-icons/file/file-download';
-import Delete from 'material-ui/svg-icons/action/delete';
-import FontIcon from 'material-ui/FontIcon';
-// import Header from 'material-ui/components/header'; 
-// import NewPost from 'material-ui/components/new_post';
 
-/**
- * Custom react component
- */
+//Custom react component
 import VideoDialog from'./video-dialog.component';
 import AddVideoDialog from'./add-video-dialog.component'; 
 
@@ -222,7 +207,7 @@ class App extends Component {
           onClick={this.handleToggle}
         /> 
 
-        <div class="content">       
+        <div className="content">       
           <RaisedButton style={styles.addvideo} label="Ajouter une vidéo" onClick={this.openAddVideoDialogForm} />
           {hobbyDeletedParagraph}
           <p style={hobbyCounterStyle} className={hobbyCounterClass}>{this.state.hobbies.length} vidéos</p>
@@ -235,7 +220,7 @@ class App extends Component {
             >
               {this.state.hobbies.map((el, index) => (
               <GridTile
-                key={el.name}
+                key={el._id}
                 title={el.name}
                 actionIcon={<IconButton><StarBorder color="rgb(0, 188, 212)" /></IconButton>}
                 titleStyle={styles.titleStyle}
@@ -264,7 +249,7 @@ class App extends Component {
       open={this.state.open}
       onRequestChange={(open) => this.setState({open})}
       >
-      <div class="content">
+      <div className="content">
         <h1>Bienvenue</h1>
         <h3>sur l'appli de présentation du MBDS en vidéo !</h3>
       </div>

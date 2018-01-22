@@ -1,11 +1,7 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
-
-import App from'./App';
 
 
 export default class AddVideoDialog extends React.Component {
@@ -32,11 +28,12 @@ export default class AddVideoDialog extends React.Component {
     /**
      * Open Dialog
      */
-    handleOpen = (el) => {
-      this.state.video = el;
-      //get data of video with deep 2 for access in the render method
-      this.state.details = el.details;
-      this.setState({open: true});
+    handleOpen = (el) => {   
+      this.setState({
+        video : el,
+        //get data of video with deep 2 for access in the render method
+        details : el.details,
+        open: true});
     };
   
     /**

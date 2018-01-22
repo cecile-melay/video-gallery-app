@@ -1,8 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 
 
@@ -29,15 +27,21 @@ export default class UpdateVideoDialog extends React.Component {
      */
     handleOpen = (el) => {
       console.log(el);
-      this.state.id = el._id;
-      this.state.video = el;
-      this.state.name = el.name;
-      this.state.user = el.user;
-      this.state.url = el.url;
-      //get data of video with deep 2 for access in the render method
-      this.state.details = el.details;
-      this.state.description = el.details.description;
-      this.setState({open: true});
+      this.setState({
+        
+      })
+      this.setState({
+        id : el._id,
+        video : el,
+        name : el.name,
+        user : el.user,
+        url : el.url,
+        
+        //get data of video with deep 2 for access in the render method
+        details : el.details,
+        description : el.details.description,
+        
+        open: true});
     };
   
     /**
@@ -155,10 +159,10 @@ export default class UpdateVideoDialog extends React.Component {
             onRequestClose={this.handleClose}        
           >
             <form onSubmit={this.handleSubmit}>
-                <TextField value={this.state.name} onChange={this.handleChangeName}/>
-                <TextField value={this.state.description} onChange={this.handleChangeDescription} /><br/>
-                <TextField value={this.state.user} onChange={this.handleChangeUser}/><br/>
-                <TextField value={this.state.url} onChange={this.handleChangeUrl} /><br/>
+                <TextField id="text-field-controlled-name" value={this.state.name} onChange={this.handleChangeName}/>
+                <TextField id="text-field-controlled-description" value={this.state.description} onChange={this.handleChangeDescription} /><br/>
+                <TextField id="text-field-controlled-user" value={this.state.user} onChange={this.handleChangeUser}/><br/>
+                <TextField id="text-field-controlled-url" value={this.state.url} onChange={this.handleChangeUrl} /><br/>
             </form>            
           </Dialog>
         </div>

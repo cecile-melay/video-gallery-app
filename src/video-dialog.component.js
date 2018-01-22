@@ -1,7 +1,6 @@
 import React from 'react';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
 
 /**
  * Custom react component
@@ -26,28 +25,27 @@ export default class VideoDialog extends React.Component {
     /**
      * Open Dialog
      */
-    handleOpen = (el) => {
-
-      //Initialise video data
-      this.state.video = [];
-      this.state.details = {description:'Aucune description'}
-      
-      //Set video data content for the video to display
-      this.state.video = el;
+    handleOpen = (el) => {       
+      this.setState({
+         //Initialise video data
+        details : {description:'Aucune description'},
+        //Set video data content for the video to display
+        video : el,
+        open: true});
 
       //get data of video with deep 2 for access in the render method
       if (el.details.description) {
-        this.state.details.description = el.details.description;
+        this.details.setState({
+         description : el.details.description
+        });
       }
-        
-      this.setState({open: true});
     };
   
     /**
      * Close Dialog
      */
     handleClose(reloadData) {
-      if(reloadData == true) {
+      if(reloadData === true) {
         this.props.loadData();
       }
       this.setState({open: false});
@@ -84,7 +82,7 @@ export default class VideoDialog extends React.Component {
             onRequestClose={() => this.handleClose(false)}
           >    
             {this.state.details.description}
-            <iframe width="560" height="315" src={this.state.video.url} frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            <iframe title="video-youtube" width="560" height="315" src={this.state.video.url} frameBorder="0" allow="autoplay; encrypted-media" allowFullScreen></iframe>
           </Dialog>
 
           <UpdateVideoDialog handleClose={this.handleClose} ref={(updateVideoDialog) => { this._updateVideoDialog = updateVideoDialog; }}></UpdateVideoDialog>
