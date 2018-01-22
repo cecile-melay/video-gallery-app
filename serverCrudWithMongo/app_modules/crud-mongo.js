@@ -17,7 +17,6 @@ exports.findRestaurants = function(page, pagesize, callback) {
     	    console.log("page = " + pagesize);
 
         if(!err){
-			console.log(db.collection('videos').find());
             db.collection('videos')
             .find()
             // .skip(page*pagesize)
@@ -77,8 +76,10 @@ exports.createRestaurant = function(formData, callback) {
 	    if(!err) {
 	 
 			let toInsert = {
-				name : formData.nom, 
-				cuisine : formData.cuisine
+				name : formData.name,
+				user : formData.user, 
+				url : formData.url, 
+				details : formData.details,  
 			};
 			console.dir(JSON.stringify(toInsert));
 		    db.collection("videos")
@@ -117,11 +118,11 @@ exports.updateRestaurant = function(id, formData, callback) {
 		if(!err) {
             let myquery = { "_id": ObjectId(id)};
 	        let newvalues = {
-	        	name : formData.nom, 
-	        	cuisine : formData.cuisine
-	        };
-
-
+	        	name : formData.name,
+				user : formData.user, 
+				url : formData.url, 
+				details : formData.details, 
+			};
 			db.collection("videos")
 			.updateOne(myquery, newvalues, function(err, result) {
 	         	if(!err){
@@ -137,7 +138,7 @@ exports.updateRestaurant = function(id, formData, callback) {
 		                error : err,
 		                msg: "ProblÃ¨me Ã  la modification"
 		            };
-			    }
+				}
 			    callback(reponse);
 	        });
 		} else{
@@ -145,9 +146,10 @@ exports.updateRestaurant = function(id, formData, callback) {
                     	succes: false,
                         error : err,
                         msg:"ProblÃ¨me lors de la modification, erreur de connexion."
-                    };
+					};
             callback(reponse);
 		}
+		
 	});
 }
 

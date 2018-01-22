@@ -26,6 +26,8 @@ app.use(bodyParser.json());
 app.use(function (req, res, next) {
 	res.header("Access-Control-Allow-Origin", "*");
 	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+	res.header("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE");
+	res.header('Access-Control-Allow-Credentials', 'true');
 	next();
 });
 
@@ -93,13 +95,12 @@ app.get('/api/restaurants', function(req, res) {
  			msg:"Restaurant recherchés avec succès",
  			data: data
 		 }
-		 console.log(data);
  		res.send(JSON.stringify(objdData)); 
  	}); 
 }); 
 
 // RÃ©cupÃ©ration d'un seul restaurant par son id
-app.get('/api/restaurants/:id', function(req, res) {
+app.get('/api/video/:id', function(req, res) {
 	var id = req.params.id;
 
  	mongoDBModule.findRestaurantById(id, function(data) {
@@ -110,7 +111,7 @@ app.get('/api/restaurants/:id', function(req, res) {
 
 // Creation d'un restaurant par envoi d'un formulaire
 // On fera l'insert par un POST, c'est le standard REST
-app.post('/api/restaurants', multerData.fields([]), function(req, res) {
+app.post('/api/addvideo', multerData.fields([]), function(req, res) {
 	// On supposera qu'on ajoutera un restaurant en 
 	// donnant son nom et sa cuisine. On va donc 
 	// recuperer les donnÃ©es du formulaire d'envoi
@@ -124,9 +125,9 @@ app.post('/api/restaurants', multerData.fields([]), function(req, res) {
 
 // Modification d'un restaurant, on fera l'update par
 // une requÃªte http PUT, c'est le standard REST
-app.put('/api/restaurants/:id', multerData.fields([]), function(req, res) {
+app.put('/api/updatevideo/:id', multerData.fields([]), function(req, res) {
 	var id = req.params.id;
-
+	console.log('hi');
  	mongoDBModule.updateRestaurant(id, req.body, function(data) {
  		res.send(JSON.stringify(data)); 
  	});
@@ -135,7 +136,7 @@ app.put('/api/restaurants/:id', multerData.fields([]), function(req, res) {
 // Suppression d'un restaurant
 // On fera la suppression par une requÃªte http DELETE
 // c'est le standard REST
-app.delete('/api/restaurants/:id', function(req, res) {
+app.delete('/api/deletevideo/:id', function(req, res) {
 	var id = req.params.id;
 
  	mongoDBModule.deleteRestaurant(id, function(data) {
