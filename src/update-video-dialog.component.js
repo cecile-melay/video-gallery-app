@@ -67,6 +67,11 @@ export default class UpdateVideoDialog extends React.Component {
           url: this.state.url,
         })
       })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        this.handleClose();
+        this.props.handleClose(true);
+      })
     }  
 
     /**
@@ -74,21 +79,28 @@ export default class UpdateVideoDialog extends React.Component {
      */
     handleDelete = () => {
       console.log(this.state.name);
-    fetch('http://localhost:8080/api/deletevideo/'+this.state.id, {
-      method: 'DELETE',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      mode: 'cors',    
-      body: JSON.stringify({
-        name: this.state.name,
-        details: {description:this.state.description},
-        user:this.state.user,
-        url: this.state.url,
+      fetch('http://localhost:8080/api/deletevideo/'+this.state.id, {
+        method: 'DELETE',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        mode: 'cors',    
+        body: JSON.stringify({
+          name: this.state.name,
+          details: {description:this.state.description},
+          user:this.state.user,
+          url: this.state.url,
+        })
+  
       })
-    })
-  }  
+      .then((response) => response.json())
+      .then((responseJson) => {
+        this.handleClose();
+        this.props.handleClose(true);
+      })
+      
+    }  
 
   /**
    * Handle the double data binding

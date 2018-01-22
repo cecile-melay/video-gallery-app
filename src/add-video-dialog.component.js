@@ -64,17 +64,22 @@ export default class AddVideoDialog extends React.Component {
           url: this.state.url,
         })
       })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        this.props.loadData();
+        this.handleClose();
+      })  
     }  
   
     render() {
       const actions = [      
         <FlatButton
-          label="Envoyer"
+          label="Valider"
           primary={true}
           onClick={this.handleSubmit}
         />,
         <FlatButton
-        label="OK"
+        label="Retour"
         primary={true}
         onClick={this.handleClose}
       />,

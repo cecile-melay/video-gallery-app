@@ -19,6 +19,8 @@ import ContentCopy from 'material-ui/svg-icons/content/content-copy';
 import Download from 'material-ui/svg-icons/file/file-download';
 import Delete from 'material-ui/svg-icons/action/delete';
 import FontIcon from 'material-ui/FontIcon';
+// import Header from 'material-ui/components/header'; 
+// import NewPost from 'material-ui/components/new_post';
 
 /**
  * Custom react component
@@ -32,6 +34,7 @@ class App extends Component {
     super(props);
 
     this.loadData();
+    this.loadData = this.loadData.bind(this);
     
     this.state = {
       hobbies : [],
@@ -66,6 +69,7 @@ class App extends Component {
    * Get data from the ServerCrudWithMongo
    */
   loadData() {
+    console.log('hey');
     let url = "http://localhost:8080/api/restaurants";  
     //document.getElementById("btnPrevious").disabled = true;      
     fetch(url)
@@ -84,6 +88,10 @@ class App extends Component {
     .catch((error) => {
       console.error(error);
     });      
+  }
+
+  test1() {
+    console.log('test');
   }
 
   /**
@@ -204,7 +212,8 @@ class App extends Component {
     const hobbyCounterClass = (this.state.hobbies.length > 3) ? "redBorder" : ""
     
     return (
-      <MuiThemeProvider>
+      <MuiThemeProvider >
+
         <div className="App">
 
         <AppBar
@@ -246,8 +255,8 @@ class App extends Component {
         </div>
       </div>
 
-      <VideoDialog ref={(videoDialog) => { this._videoDialog = videoDialog; }}></VideoDialog>
-      <AddVideoDialog ref={(addVideoDialog) => { this._addVideoDialog = addVideoDialog; }}></AddVideoDialog>
+      <VideoDialog loadData={this.loadData} ref={(videoDialog) => { this._videoDialog = videoDialog; }}></VideoDialog>
+      <AddVideoDialog loadData={this.loadData} ref={(addVideoDialog) => { this._addVideoDialog = addVideoDialog; }}></AddVideoDialog>
       
       <Drawer
       docked={false}

@@ -10,7 +10,12 @@ import UpdateVideoDialog from'./update-video-dialog.component';
 
 
 export default class VideoDialog extends React.Component {
+  
+  constructor(props) {
+    super(props);
 
+    this.handleClose = this.handleClose.bind(this);
+  }
     //Declare global variable
     state = {
       open: false,
@@ -41,7 +46,10 @@ export default class VideoDialog extends React.Component {
     /**
      * Close Dialog
      */
-    handleClose = () => {
+    handleClose(reloadData) {
+      if(reloadData == true) {
+        this.props.loadData();
+      }
       this.setState({open: false});
     };
   
@@ -51,14 +59,14 @@ export default class VideoDialog extends React.Component {
      */
     openUpdateVideoDialog = (el) => {
       this._updateVideoDialog.handleOpen(el);
-    };
+    };  
 
     render() {
       const actions = [
         <FlatButton
           label="OK"
           primary={true}
-          onClick={this.handleClose}
+          onClick={() => this.handleClose(false)}
         />,
         <FlatButton
         label="Modifier"
@@ -73,13 +81,13 @@ export default class VideoDialog extends React.Component {
             actions={actions}
             modal={false}
             open={this.state.open}
-            onRequestClose={this.handleClose}
+            onRequestClose={() => this.handleClose(false)}
           >    
             {this.state.details.description}
             <iframe width="560" height="315" src={this.state.video.url} frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
           </Dialog>
 
-          <UpdateVideoDialog ref={(updateVideoDialog) => { this._updateVideoDialog = updateVideoDialog; }}></UpdateVideoDialog>
+          <UpdateVideoDialog handleClose={this.handleClose} ref={(updateVideoDialog) => { this._updateVideoDialog = updateVideoDialog; }}></UpdateVideoDialog>
 
         </div>
       );
