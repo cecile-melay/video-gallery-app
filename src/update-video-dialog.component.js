@@ -8,6 +8,11 @@ import TextField from 'material-ui/TextField';
 
 export default class UpdateVideoDialog extends React.Component {
 
+  constructor(props) {
+    super(props);
+    this.handleUpdate = this.handleUpdate.bind(this);
+  }
+
   //Declare global variable
     state = {
       open: false,
@@ -23,8 +28,8 @@ export default class UpdateVideoDialog extends React.Component {
      * Open Dialog
      */
     handleOpen = (el) => {
-        console.log(el);
-        this.state.id = el._id;
+      console.log(el);
+      this.state.id = el._id;
       this.state.video = el;
       this.state.name = el.name;
       this.state.user = el.user;
@@ -43,17 +48,18 @@ export default class UpdateVideoDialog extends React.Component {
     };
 
     /**
-     * Create new video 
+     * Update video by its id 
      * send data to the serverCrudWithMongo.js
      */
-    handleSubmit = () => {
-        console.log("hi");
-      fetch('http://localhost:8080/api/videos/:'+this.state.id, {
-        method: 'POST',
+    handleUpdate = () => {
+      console.log(this.state.name);
+      fetch('http://localhost:8080/api/updatevideo/'+this.state.id, {
+        method: 'PUT',
         headers: {
           'Accept': 'application/json',
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
+        mode: 'cors',    
         body: JSON.stringify({
           name: this.state.name,
           details: {description:this.state.description},
@@ -62,13 +68,58 @@ export default class UpdateVideoDialog extends React.Component {
         })
       })
     }  
+
+    /**
+     * Delete video by its id 
+     */
+    handleDelete = () => {
+      console.log(this.state.name);
+    fetch('http://localhost:8080/api/deletevideo/'+this.state.id, {
+      method: 'DELETE',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      mode: 'cors',    
+      body: JSON.stringify({
+        name: this.state.name,
+        details: {description:this.state.description},
+        user:this.state.user,
+        url: this.state.url,
+      })
+    })
+  }  
+
+  /**
+   * Handle the double data binding
+   */
+  handleChangeName = (event) => {
+    this.setState({
+      name: event.target.value,
+    });
+  };
+  handleChangeDescription = (event) => {
+    this.setState({
+      description: event.target.value,
+    });
+  };
+  handleChangeUser = (event) => {
+    this.setState({
+      user: event.target.value,
+    });
+  };
+  handleChangeUrl = (event) => {
+    this.setState({
+      url: event.target.value,
+    });
+  };
   
     render() {
       const actions = [ 
         <FlatButton
         label="Supprimer la vidéo"
         primary={true}
-        onClick={this.handleSubmit}
+        onClick={this.handleDelete}
       />,     
         <FlatButton
           label="Annuler"
@@ -78,7 +129,7 @@ export default class UpdateVideoDialog extends React.Component {
         <FlatButton
         label="Valider"
         primary={true}
-        onClick={this.handleSubmit}
+        onClick={this.handleUpdate}
       />,
       ];
   
@@ -92,10 +143,10 @@ export default class UpdateVideoDialog extends React.Component {
             onRequestClose={this.handleClose}        
           >
             <form onSubmit={this.handleSubmit}>
-                <TextField type="text" defaultValue={this.state.name}  hintText="Nom"  /><br/>
-                <TextField type="text" defaultValue={this.state.description}  hintText="Description" /><br/>
-                <TextField type="text" defaultValue={this.state.user}  hintText="Votre nom ou pseudo" /><br/>
-                <TextField type="text" defaultValue={this.state.url}  hintText="URL de la vidéo avec (lien embed)"  /><br/>
+                <TextField value={this.state.name} onChange={this.handleChangeName}/>
+                <TextField value={this.state.description} onChange={this.handleChangeDescription} /><br/>
+                <TextField value={this.state.user} onChange={this.handleChangeUser}/><br/>
+                <TextField value={this.state.url} onChange={this.handleChangeUrl} /><br/>
             </form>            
           </Dialog>
         </div>

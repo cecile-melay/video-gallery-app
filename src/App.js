@@ -43,16 +43,28 @@ class App extends Component {
     };
   }
 
+  /**
+   * Toggle the top menu side bar
+   */
   handleToggle = () => this.setState({open: !this.state.open});
 
+  /**
+   * Call the child component method to open the dialog
+   */
   openVideoDialog = (el) => {
     this._videoDialog.handleOpen(el);
   };
 
+   /**
+   * Call the child component method to open the dialog
+   */
   openAddVideoDialogForm = (el) => {
     this._addVideoDialog.handleOpen(el);
   };
 
+   /**
+   * Get data from the ServerCrudWithMongo
+   */
   loadData() {
     let url = "http://localhost:8080/api/restaurants";  
     //document.getElementById("btnPrevious").disabled = true;      
@@ -74,6 +86,9 @@ class App extends Component {
     });      
   }
 
+  /**
+   * TODO
+   */
   addHobby() {
     //alert("addHobby: " + this.state.input);
     const oldHobbies = this.state.hobbies;
@@ -83,6 +98,10 @@ class App extends Component {
     });
   }
 
+  /**
+   * TODO
+   * @param {*} hobby 
+   */
   removeHobby(hobby) {
     const oldHobbies = this.state.hobbies;
     const position = oldHobbies.indexOf(hobby);
@@ -96,6 +115,10 @@ class App extends Component {
      } );
   }
 
+  /**
+   * TODO
+   * @param {*} event 
+   */
   inputChanged(event) {
     let value = event.target.value;
     this.setState({
@@ -103,6 +126,9 @@ class App extends Component {
     })
   }
 
+  /**
+   * TODO
+   */
   prevPage() {
     console.log(this.state.pageState);
     //app7.updateButtons();  
@@ -129,6 +155,9 @@ class App extends Component {
     }
   }
 
+   /**
+   * TODO
+   */
   nextPage() {
     this.state.pageState++;
     let url = "http://localhost:8080/api/restaurants?page="+this.state.pageState;  
@@ -150,7 +179,10 @@ class App extends Component {
     });      
   }
 
-  render() {;
+   /**
+   * Display
+   */
+  render() {
     //TODO Delete hobby action
     let list = this.state.hobbies.map(
       (el, index) => {

@@ -122,9 +122,7 @@ exports.updateRestaurant = function(id, formData, callback) {
 				user : formData.user, 
 				url : formData.url, 
 				details : formData.details, 
-	        };
-
-
+			};
 			db.collection("videos")
 			.updateOne(myquery, newvalues, function(err, result) {
 	         	if(!err){
@@ -140,7 +138,7 @@ exports.updateRestaurant = function(id, formData, callback) {
 		                error : err,
 		                msg: "ProblÃ¨me Ã  la modification"
 		            };
-			    }
+				}
 			    callback(reponse);
 	        });
 		} else{
@@ -148,9 +146,10 @@ exports.updateRestaurant = function(id, formData, callback) {
                     	succes: false,
                         error : err,
                         msg:"ProblÃ¨me lors de la modification, erreur de connexion."
-                    };
+					};
             callback(reponse);
 		}
+		
 	});
 }
 

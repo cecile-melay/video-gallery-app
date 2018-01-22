@@ -5,6 +5,8 @@ import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 
+import App from'./App';
+
 
 export default class AddVideoDialog extends React.Component {
 
