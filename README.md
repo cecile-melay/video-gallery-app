@@ -1,5 +1,26 @@
 # Video gallery app
 
+## Description
+
+L'application est développé avec le framework ReactJS.
+
+Nous avons choisi ce framework car il situe parmis les plus rapides -à la différence de Angular qui est plutôt lent-.
+
+Plus compliqué que VueJS et légèrement plus lent -de très peu-, nous avons également choisi ReactJS car ce framework permet un déploiement hybrid sur iOs, Android et WindowsPhone. 
+
+L'application utilise l'Api ServerCrudWithMongo vue en cours légèrement modifiée.
+
+## Etat des lieux
+
+Le Crud réalisé permet de :
+
+- Create
+- Read
+- Update
+- Delete
+
+# Sujet
+
 ## Mini projet à rendre avant le 31 Janvier (MBDS)
 Vous devrez réaliser, avec un des trois frameworks vus en cours (VueJS, React, Angular 4/5), une application "galerie vidéo" présentant des vidéos YouTube faites par les élèves du MBDS, 30 secondes maximum, présentant le MBDS en entier ou juste une de ses facettes.
 
