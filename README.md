@@ -4,7 +4,7 @@
 
 L'application est développé avec le framework ReactJS.
 
-Nous avons choisi ce framework car il situe parmis les plus rapides -à la différence de Angular qui est plutôt lent-.
+Nous avons choisi ce framework car il se situe parmis les plus rapides -à la différence de Angular qui est plutôt lent lors du premier chargement-.
 
 Plus compliqué que VueJS et légèrement plus lent -de très peu-, nous avons également choisi ReactJS car ce framework permet un déploiement hybrid sur iOs, Android et WindowsPhone. 
 
@@ -12,12 +12,21 @@ L'application utilise l'Api ServerCrudWithMongo vue en cours légèrement modifi
 
 ## Etat des lieux
 
+### description du Crud
+
 Le Crud réalisé permet de :
 
-- Create
-- Read
-- Update
-- Delete
+- Create : il est possible d'ajouter une vidéo via un formulaire dans un dialog
+
+- Read : il est possible des lire les vidéos en cliquant sur l'image. Un dialog s'ouvre, affiche la vidéo en autoplay = true
+//TODO finir le read en ajoutant la pagination
+
+- Update : il est possible de modifier une vidéo et ses informations en cliquant sur le bouton modifier depuis le premier dialog qui effecue le read qui ouvre un autre dialog qui contient une formulaire de modification de vidéo
+//TODO finir l'update en rendant possible la modification des détails
+
+- Delete : il est possible de supprimer une vidéo et ses informations en cliquant sur le bouton modifier depuis le premier dialog qui effecue le read puis de cliquer sur le bouton suprimer
+
+### description de l'utilisation de l'API Youtube
 
 # Sujet
 
@@ -48,7 +57,8 @@ Facultatif : Possibilité de noter la vidéo avec des étoiles (1 à 5 étoiles)
 
 Un bouton ou une entrée de menu permettra d'ajouter une nouvelle vidéo. On demandera l'URL de la vidéo YouTube, une description de quelques lignes, et une légende pour afficher sous la vidéo. On vérifiera que la vidéo n'a pas déjà été ajoutée. On vérifiera aussi que les champs description et légende ne sont pas vides avant de publier la vidéo.
  
-Facultatif : utiliser l'API de YouTube pour récupérer la description de la vidéo et la légende (le titre de la vidéo) directement sur YouTube. On supposera dans un premier temps que la clé d'API est codée "en dur", vous pourrez, si vous avez le temps et si vous êtes à l'aise, prévoir un menu "paramètres" dans lequel vous pourrez coller la clé d'API qui sera utilisée par l'application.
+### Facultatif : utiliser l'API de YouTube pour récupérer la description de la vidéo et la légende (le titre de la vidéo) directement sur YouTube. 
+On supposera dans un premier temps que la clé d'API est codée "en dur", vous pourrez, si vous avez le temps et si vous êtes à l'aise, prévoir un menu "paramètres" dans lequel vous pourrez coller la clé d'API qui sera utilisée par l'application.
  
 ### Modification d'une vidéo
 
