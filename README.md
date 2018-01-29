@@ -27,6 +27,7 @@ Le Crud réalisé permet de :
 - Delete : il est possible de supprimer une vidéo et ses informations en cliquant sur le bouton modifier depuis le premier dialog qui effecue le read puis de cliquer sur le bouton suprimer
 
 ### description de l'utilisation de l'API Youtube
+//TODO
 
 # Sujet
 
