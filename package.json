@@ -10,7 +10,8 @@
     "react-dom": "^16.1.1",
     "react-font-icon": "^1.0.0",
     "react-scripts": "1.0.17",
-    "rebase": "^0.3.0"
+    "rebase": "^0.3.0",
+    "youtube-info": "^1.1.2"
   },
   "scripts": {
     "start": "react-scripts start",

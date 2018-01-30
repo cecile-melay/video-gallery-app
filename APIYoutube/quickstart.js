@@ -2,6 +2,7 @@ var fs = require('fs');
 var readline = require('readline');
 var google = require('googleapis');
 var googleAuth = require('google-auth-library');
+var fetchVideoInfo = require('youtube-info');
 
 // Install the npm package by this way
 // npm install googleapis --save
@@ -21,11 +22,11 @@ fs.readFile('client_secret.json', function processClientSecrets(err, content) {
     return;
   }
   // Authorize a client with the loaded credentials, then call the YouTube API.
-  //authorize(JSON.parse(content), getChannel);
+  authorize(JSON.parse(content), getChannel);
   //authorize(JSON.parse(content), getChannel);
   //authorize(JSON.parse(content), videosGetRating);
-  authorize(JSON.parse(content), {'params': {'id': 'Ks-_Mh1QhMc,c0KYU2j0TM4,eIho2S0ZahI',
-                 'onBehalfOfContentOwner': ''}}, videosGetRating);
+  /*authorize(JSON.parse(content), {'params': {'id': 'Ks-_Mh1QhMc,c0KYU2j0TM4,eIho2S0ZahI',
+                 'onBehalfOfContentOwner': ''}}, videosGetRating);*/
 })
 
 /**
@@ -132,6 +133,10 @@ function getChannel(auth) {
   });
 }
 
+fetchVideoInfo('cW7yK0fCl4Y', function (err, videoInfo) {
+  if (err) throw new Error(err);
+  console.log(videoInfo);
+});
 
 
 function videosGetRating(auth, requestData) {

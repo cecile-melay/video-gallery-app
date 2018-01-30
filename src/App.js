@@ -13,6 +13,8 @@ import ContentLink from 'material-ui/svg-icons/content/link';
 import VideoDialog from'./video-dialog.component';
 import AddVideoDialog from'./add-video-dialog.component'; 
 
+
+
 class App extends Component {
 
   constructor(props) {
@@ -27,7 +29,8 @@ class App extends Component {
       pageState : 0,
       selected: 1,
       input: "",
-      hobbyWasDeleted: false
+      hobbyWasDeleted: false,
+      videosData: [],
     };
   }
 
@@ -61,8 +64,10 @@ class App extends Component {
     .then((response) => response.json())
     .then((responseJson) => {
       let data = [];
+      let dataFromYoutubeAPI = [] // HEEEEEEEEEEEEEEEEEEEERE
       console.log(responseJson);
       for (var i=0; i < responseJson.data.length; i++) {
+        // for each video get info for youtube API
          data.push(responseJson.data[i]);
       }
       this.setState({
