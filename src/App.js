@@ -24,13 +24,14 @@ class App extends Component {
     this.loadData = this.loadData.bind(this);
     
     this.state = {
-      hobbies : [],
+      videos : [],
       open: false,
       pageState : 0,
       selected: 1,
       input: "",
-      hobbyWasDeleted: false,
+      videoWasDeleted: false,
       videosData: [],
+      videosImg: []
     };
   }
 
@@ -57,7 +58,6 @@ class App extends Component {
    * Get data from the ServerCrudWithMongo
    */
   loadData() {
-    console.log('hey');
     let url = "http://localhost:8080/api/videos";  
     //document.getElementById("btnPrevious").disabled = true;      
     fetch(url)
@@ -65,13 +65,15 @@ class App extends Component {
     .then((responseJson) => {
       let data = [];
       let dataFromYoutubeAPI = [] // HEEEEEEEEEEEEEEEEEEEERE
-      console.log(responseJson);
+      let videosImg = [] 
       for (var i=0; i < responseJson.data.length; i++) {
         // for each video get info for youtube API
          data.push(responseJson.data[i]);
+         data[i].videoImg = responseJson.videosInfos[i].thumbnailUrl
       }
       this.setState({
-          hobbies:data,
+          videos:data,
+          videosImg:videosImg,
           input : ""
       });
     })
@@ -87,29 +89,29 @@ class App extends Component {
   /**
    * TODO
    */
-  addHobby() {
-    //alert("addHobby: " + this.state.input);
-    const oldHobbies = this.state.hobbies;
+  addvideo() {
+    //alert("addvideo: " + this.state.input);
+    const oldvideos = this.state.videos;
     this.setState({
-      hobbies: oldHobbies.concat(this.state.input),
+      videos: oldvideos.concat(this.state.input),
       input : ""
     });
   }
 
   /**
    * TODO
-   * @param {*} hobby 
+   * @param {*} video 
    */
-  removeHobby(hobby) {
-    const oldHobbies = this.state.hobbies;
-    const position = oldHobbies.indexOf(hobby);
+  removevideo(video) {
+    const oldvideos = this.state.videos;
+    const position = oldvideos.indexOf(video);
     this.setState({
-      hobbies: oldHobbies.filter(
+      videos: oldvideos.filter(
         (el, index) => {
           return (index !== position)
         }
       ),
-      hobbyWasDeleted : true
+      videoWasDeleted : true
      } );
   }
 
@@ -143,7 +145,7 @@ class App extends Component {
              data.push(responseJson.data[i].name);
           }
           this.setState({
-              hobbies:data,
+              videos:data,
               input : ""
           });
         })
@@ -168,7 +170,7 @@ class App extends Component {
          data.push(responseJson.data[i].name);
       }
       this.setState({
-          hobbies:data,
+          videos:data,
           input : ""
       });
     })
@@ -181,29 +183,29 @@ class App extends Component {
    * Display
    */
   render() {
-    //TODO Delete hobby action
-    let list = this.state.hobbies.map(
+    //TODO Delete video action
+    let list = this.state.videos.map(
       (el, index) => {
         const liStyle = {
           backgroundColor: index % 2 === 0 ? 'lightpink' : 'red'
         };
-        return <li key={el+index} style={liStyle} index={index} onClick={() => this.removeHobby(el)}>{el}</li>
+        return <li key={el+index} style={liStyle} index={index} onClick={() => this.removevideo(el)}>{el}</li>
       }
     );
-    let hobbyDeletedParagraph;
-    if(this.state.hobbyWasDeleted) {
-      hobbyDeletedParagraph = <p>Hobby Deleted !</p>
+    let videoDeletedParagraph;
+    if(this.state.videoWasDeleted) {
+      videoDeletedParagraph = <p>video Deleted !</p>
     }
 
     //Example of dynamic style
-    const hobbyCounterStyle = {
-      color: (this.state.hobbies.length <= 3) ? "green" : "red"
+    const videoCounterStyle = {
+      color: (this.state.videos.length <= 3) ? "green" : "red"
     }
-    const hobbyCounterClass = (this.state.hobbies.length > 3) ? "redBorder" : ""
+    const videoCounterClass = (this.state.videos.length > 3) ? "redBorder" : ""
 
     let displayVideos = <p>Chargement, veuillez patientez quelques secondes pendant le chargement des vidéos...</p>;
-    if (this.state.hobbies.length > 0) {
-      displayVideos = <p style={hobbyCounterStyle} className={hobbyCounterClass}>{this.state.hobbies.length} vidéos</p>;
+    if (this.state.videos.length > 0) {
+      displayVideos = <p style={videoCounterStyle} className={videoCounterClass}>{this.state.videos.length} vidéos</p>;
     }
     
     return (
@@ -219,7 +221,7 @@ class App extends Component {
 
         <div className="content">       
           <RaisedButton style={styles.addvideo} label="Ajouter une vidéo" onClick={this.openAddVideoDialogForm} />
-          {hobbyDeletedParagraph}
+          {videoDeletedParagraph}
           {displayVideos}
           <div style={styles.root}>
             <GridList
@@ -228,7 +230,7 @@ class App extends Component {
               padding={1}
               style={styles.gridList}
             >
-              {this.state.hobbies.map((el, index) => (
+              {this.state.videos.map((el, index) => (
               <GridTile
                 key={el._id}
                 title={el.name}
@@ -240,13 +242,12 @@ class App extends Component {
                 cols={1}
                 rows={1}             
               >
-              <img onClick={(e) => this.openVideoDialog(el, e)} src={"images/grid-list/youtube_blog.png"} />
+              <img onClick={(e) => this.openVideoDialog(el, e)} src={el.videoImg} />
               </GridTile> 
               ))}
             </GridList>
           </div>
-          <RaisedButton label="Précédent" primary={true}  onClick={this.prevPage.bind(this)} />
-          <RaisedButton style={styles.marginLeft} label="Suivant" primary={true}  onClick={this.nextPage.bind(this)} />         
+               
         </div>
       </div>
 
@@ -270,7 +271,9 @@ class App extends Component {
     </MuiThemeProvider>);
   }
 
-
+ /*//TODO Pagination 
+ <RaisedButton label="Précédent" primary={true}  onClick={this.prevPage.bind(this)} />
+  <RaisedButton style={styles.marginLeft} label="Suivant" primary={true}  onClick={this.nextPage.bind(this)} /> */  
 
 //End of App
 }
