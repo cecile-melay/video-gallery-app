@@ -4,6 +4,7 @@ const port     = process.env.PORT || 8080;
 const server   = require('http').Server(app);
 // pour les formulaires multiparts
 var multer = require('multer');
+var sanitizeHtml = require('sanitize-html');
 var multerData = multer();
 
 const mongoDBModule = require('./app_modules/crud-mongo');
@@ -97,7 +98,7 @@ app.get('/api/videos', function(req, res) {
         data: data,
         videosInfos : videosInfos
      }
-      res.send(JSON.stringify(objdData)); 
+      res.send(JSON.stringify( objdData)); 
     });
  		
  	}); 

@@ -79,14 +79,17 @@ export default class VideoDialog extends React.Component {
             actions={actions}
             modal={false}
             open={this.state.open}
+            autoScrollBodyContent={true}
             onRequestClose={() => this.handleClose(false)}
           >  
            <p><b>{this.state.video.titleVideo}</b></p>
-           <p style={{"overflow":"hidden","text-overflow":"ellipsis","white-space":"nowrap","width":"500px"}} > <b>Description :</b> {this.state.video.description}</p>
+           <iframe title="video-youtube" width="100%" height="315" src={this.state.video.embedURL} frameBorder="0" allow="autoplay; encrypted-media" allowFullScreen></iframe>
+           <p dangerouslySetInnerHTML={ {__html: this.state.video.description } }   style={{"overflow":"hidden","textOverflow":"ellipsis","whiteSpace":"nowrap","width":"500px"}}  />
            <p><b>Genre :</b> {this.state.video.genre}</p>
            <p><b>Channel :</b> {this.state.video.owner}</p>
-           <p><b>Comments :</b> {this.state.video.commentCount}</p>
-            <iframe title="video-youtube" width="560" height="315" src={this.state.video.embedURL} frameBorder="0" allow="autoplay; encrypted-media" allowFullScreen></iframe>
+           <p><b>Published :</b> {this.state.video.datePublished}</p>
+           <p><b>Duration :</b> {this.state.video.duration} sec</p>
+           <p><b>Views :</b> {this.state.video.views}</p>
           </Dialog>
 
           <UpdateVideoDialog handleClose={this.handleClose} ref={(updateVideoDialog) => { this._updateVideoDialog = updateVideoDialog; }}></UpdateVideoDialog>
