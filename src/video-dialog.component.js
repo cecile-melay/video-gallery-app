@@ -81,7 +81,7 @@ export default class VideoDialog extends React.Component {
             open={this.state.open}
             onRequestClose={() => this.handleClose(false)}
           >  
-           <p  > description : {this.state.video.description}</p>
+           <p style={{"overflow":"hidden","text-overflow":"ellipsis","white-space":"nowrap","width":"500px"}} > description : {this.state.video.description}</p>
            <p>genre : {this.state.video.genre}</p>
            <p>channel : {this.state.video.owner}</p>
            <p>comments : {this.state.video.commentCount}</p>
