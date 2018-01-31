@@ -263,11 +263,8 @@ class App extends Component {
         <h1>Bienvenue</h1>
         <h3>sur l'appli de présentation du MBDS en vidéo !</h3>
       </div>
-        <MenuItem onClick={this.handleClose}>Consignes du projet</MenuItem>
-        <MenuItem onClick={this.handleClose}  >Etat du Projet</MenuItem>
-        <MenuItem onClick={this.handleClose} rightIcon={<ContentLink /> }>Projet Github</MenuItem>
-        <MenuItem onClick={this.handleClose} rightIcon={<ContentLink /> } >Master 2 MBDS</MenuItem>
-        <MenuItem onClick={this.handleClose} rightIcon={<ContentLink /> } >Master 2 MIAGE</MenuItem>
+      <a href="http://miageprojet2.unice.fr/Intranet_Michel_Buffa" target="_blank" ><MenuItem rightIcon={<ContentLink /> }>Consignes du projet</MenuItem></a>
+      <a href="https://github.com/cecile-melay/video-gallery-app" target="_blank" ><MenuItem rightIcon={<ContentLink /> }>Projet Github</MenuItem></a>
       </Drawer>
 
     </MuiThemeProvider>);
