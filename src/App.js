@@ -63,6 +63,7 @@ class App extends Component {
     fetch(url)
     .then((response) => response.json())
     .then((responseJson) => {
+      console.log(responseJson);
       let data = [];
       let dataFromYoutubeAPI = [] // HEEEEEEEEEEEEEEEEEEEERE
       let videosImg = [] 
@@ -70,12 +71,20 @@ class App extends Component {
         // for each video get info for youtube API
          data.push(responseJson.data[i]);
          data[i].videoImg = responseJson.videosInfos[i].thumbnailUrl
+         data[i].titleVideo = responseJson.videosInfos[i].title
+         data[i].commentCount = responseJson.videosInfos[i].commentCount
+         data[i].owner = responseJson.videosInfos[i].owner
+         data[i].embedURL = responseJson.videosInfos[i].embedURL
+         data[i].genre = responseJson.videosInfos[i].genre
+         data[i].description = responseJson.videosInfos[i].description
+         
       }
       this.setState({
           videos:data,
           videosImg:videosImg,
           input : ""
       });
+      console.log(data);
     })
     .catch((error) => {
       console.error(error);

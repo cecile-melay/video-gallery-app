@@ -75,14 +75,17 @@ export default class VideoDialog extends React.Component {
       return (
         <div>       
           <Dialog
-            title={this.state.video.name}
+            title={this.state.video.title}
             actions={actions}
             modal={false}
             open={this.state.open}
             onRequestClose={() => this.handleClose(false)}
-          >    
-            {this.state.details.description}
-            <iframe title="video-youtube" width="560" height="315" src={this.state.video.url} frameBorder="0" allow="autoplay; encrypted-media" allowFullScreen></iframe>
+          >  
+           <p  > description : {this.state.video.description}</p>
+           <p>genre : {this.state.video.genre}</p>
+           <p>channel : {this.state.video.owner}</p>
+           <p>comments : {this.state.video.commentCount}</p>
+            <iframe title="video-youtube" width="560" height="315" src={this.state.video.embedURL} frameBorder="0" allow="autoplay; encrypted-media" allowFullScreen></iframe>
           </Dialog>
 
           <UpdateVideoDialog handleClose={this.handleClose} ref={(updateVideoDialog) => { this._updateVideoDialog = updateVideoDialog; }}></UpdateVideoDialog>
