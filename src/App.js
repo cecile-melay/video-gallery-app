@@ -58,7 +58,7 @@ class App extends Component {
    */
   loadData() {
     console.log('hey');
-    let url = "http://localhost:8080/api/restaurants";  
+    let url = "http://localhost:8080/api/videos";  
     //document.getElementById("btnPrevious").disabled = true;      
     fetch(url)
     .then((response) => response.json())
@@ -200,6 +200,11 @@ class App extends Component {
       color: (this.state.hobbies.length <= 3) ? "green" : "red"
     }
     const hobbyCounterClass = (this.state.hobbies.length > 3) ? "redBorder" : ""
+
+    let displayVideos = <p>Chargement, veuillez patientez quelques secondes pendant le chargement des vidéos...</p>;
+    if (this.state.hobbies.length > 0) {
+      displayVideos = <p style={hobbyCounterStyle} className={hobbyCounterClass}>{this.state.hobbies.length} vidéos</p>;
+    }
     
     return (
       <MuiThemeProvider >
@@ -215,7 +220,7 @@ class App extends Component {
         <div className="content">       
           <RaisedButton style={styles.addvideo} label="Ajouter une vidéo" onClick={this.openAddVideoDialogForm} />
           {hobbyDeletedParagraph}
-          <p style={hobbyCounterStyle} className={hobbyCounterClass}>{this.state.hobbies.length} vidéos</p>
+          {displayVideos}
           <div style={styles.root}>
             <GridList
               cols={4}
@@ -284,7 +289,7 @@ const styles = {
   },
   gridList: {
     width: 950,
-    height: 450,
+    marginBottom: 30,
     overflowY: 'auto',
   },
   hide : {

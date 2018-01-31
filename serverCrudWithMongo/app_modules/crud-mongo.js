@@ -11,7 +11,7 @@ exports.connexionMongo = function(callback) {
 	});
 }
 
-exports.findRestaurants = function(page, pagesize, callback) {
+exports.findVideos = function(page, pagesize, callback) {
     MongoClient.connect(url, function(err, db) {
     	    console.log("pagesize = " + pagesize);
     	    console.log("page = " + pagesize);
@@ -71,7 +71,7 @@ exports.findRestaurantById = function(id, callback) {
     });
 }
 
-exports.createRestaurant = function(formData, callback) {
+exports.createVideo = function(formData, callback) {
 	MongoClient.connect(url, function(err, db) {
 	    if(!err) {
 	 
@@ -113,7 +113,7 @@ exports.createRestaurant = function(formData, callback) {
 	});
 }
 
-exports.updateRestaurant = function(id, formData, callback) {
+exports.updateVideo = function(id, formData, callback) {
 	MongoClient.connect(url, function(err, db) {
 		if(!err) {
             let myquery = { "_id": ObjectId(id)};
@@ -153,7 +153,7 @@ exports.updateRestaurant = function(id, formData, callback) {
 	});
 }
 
-exports.deleteRestaurant = function(id, callback) {
+exports.deleteVideo = function(id, callback) {
 	MongoClient.connect(url, function(err, db) {
 		if(!err) {
             let myquery = { "_id": ObjectId(id)};
@@ -187,7 +187,7 @@ exports.deleteRestaurant = function(id, callback) {
 	});
 }
 
-exports.countRestaurants = function(callback) {
+exports.countVideos = function(callback) {
 	console.log("DANS COUNT")
 	MongoClient.connect(url, function(err, db) {
 		db.collection('videos')
@@ -198,7 +198,7 @@ exports.countRestaurants = function(callback) {
 	});
 };
 
-exports.findRestaurantsByName = function(nom,page, pagesize, callback) {
+exports.findVideosByName = function(nom,page, pagesize, callback) {
     MongoClient.connect(url, function(err, db) {
     	    console.log("pagesize = " + pagesize);
     	    console.log("page = " + page);

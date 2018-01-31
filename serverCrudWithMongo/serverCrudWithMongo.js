@@ -84,47 +84,49 @@ app.get('/api/connection', function(req, res) {
 // page = no de la page
 // Oui, on va faire de la pagination, pour afficher
 // par exemple les restaurants 10 par 10
-app.get('/api/restaurants', function(req, res) { 
+app.get('/api/videos', function(req, res) { 
 	// Si prÃ©sent on prend la valeur du param, sinon 1
     let page = parseInt(req.query.page || 1);
     // idem si present on prend la valeur, sinon 10
-    let pagesize = parseInt(req.query.pagesize || 10);
+    let pagesize = parseInt(req.query.pagesize || 8);
 
- 	mongoDBModule.findRestaurants(page, pagesize, function(data) {
-
-
-      var a = callAPIYoutube(data, function(data) {
-        console.log(data);
-      });
-
-
-      /*async.each(items, function (item, callback) {
-        connection.getFileInfo(result, callback);
-      }, function (err) {
-        console.log('All done');
-      });*/
-
-      /*console.log(videoInfo);*/
-      
-      //{ 
-        //console.log(dataYoutube)
-      //}
-
-      /*fetchVideoInfo(idVideo, function (err, videoInfo) {
-        if (err) throw new Error(err);
-        //console.log(videoInfo);
-        //console.log(videoInfo.genre)
-        callback(videoInfo.genre)
-      });*/
-
-    //}
- 		var objdData = {
- 			msg:"Restaurant recherchés avec succès",
- 			data: data
-    }
- 		res.send(JSON.stringify(objdData)); 
+ 	mongoDBModule.findVideos(page, pagesize, function(data) {    
+    callAPIYoutube(data , function(videosInfos) {
+      var objdData = {
+        msg:"Restaurant recherchés avec succès",
+        data: data,
+        videosInfos : videosInfos
+     }
+      res.send(JSON.stringify(objdData)); 
+    });
+ 		
  	}); 
 }); 
+
+var cpt = 0;
+var videosInfo = [];
+
+callAPIYoutube = function(dataVideo, callback) { 
+  // Load client secrets from a local file.
+  fs.readFile('client_secret.json', function processClientSecrets(err, content) {
+    if (err) {
+      callback(err);
+    } else {
+      // Authorize a client with the loaded credentials, then call the YouTube API.
+      //authorize(JSON.parse(content), getChannel);
+      if (cpt < dataVideo.length) {      
+      var idVideo = dataVideo[cpt].url.split('/')[4];
+      fetchVideoInfo(idVideo).then(function (videoInfo) {
+        videosInfo.push(videoInfo);
+        callAPIYoutube(dataVideo, callback);
+      });
+      cpt++;
+      } else {
+        callback(videosInfo);
+      }
+    }
+  });
+}
 
 // RÃ©cupÃ©ration d'un seul restaurant par son id
 app.get('/api/video/:id', function(req, res) {
@@ -145,7 +147,7 @@ app.post('/api/addvideo', multerData.fields([]), function(req, res) {
 	// les params sont dans req.body mÃªme si le formulaire
 	// est envoyÃ© en multipart
 
- 	mongoDBModule.createRestaurant(req.body, function(data) {
+ 	mongoDBModule.createVideo(req.body, function(data) {
  		res.send(JSON.stringify(data)); 
  	});
 });
@@ -155,7 +157,7 @@ app.post('/api/addvideo', multerData.fields([]), function(req, res) {
 app.put('/api/updatevideo/:id', multerData.fields([]), function(req, res) {
 	var id = req.params.id;
 	console.log('hi');
- 	mongoDBModule.updateRestaurant(id, req.body, function(data) {
+ 	mongoDBModule.updateVideo(id, req.body, function(data) {
  		res.send(JSON.stringify(data)); 
  	});
 });
@@ -166,7 +168,7 @@ app.put('/api/updatevideo/:id', multerData.fields([]), function(req, res) {
 app.delete('/api/deletevideo/:id', function(req, res) {
 	var id = req.params.id;
 
- 	mongoDBModule.deleteRestaurant(id, function(data) {
+ 	mongoDBModule.deleteVideo(id, function(data) {
  		res.send(JSON.stringify(data)); 
  	});
 });
@@ -178,7 +180,7 @@ app.delete('/api/deletevideo/:id', function(req, res) {
 // https://blog.octo.com/designer-une-api-rest/
 app.get('/api/restaurantscount', function(req, res) { 
 	// on renvoie le nombre de restaurants
- 	mongoDBModule.countRestaurants(function(data) {
+ 	mongoDBModule.countVideos(function(data) {
  		var objdData = {
  			msg:"Count effectué avec succès",
  			data: data
@@ -197,12 +199,12 @@ app.get('/api/restaurants', function(req, res) {
 	// Si présent on prend la valeur du param, sinon 1
     let page = parseInt(req.query.page || 0);
     // idem si present on prend la valeur, sinon 10
-    let pagesize = parseInt(req.query.pagesize || 10);
+    let pagesize = parseInt(req.query.pagesize || 8);
     let nom = req.query.nom;
 
 	if(nom) {
     	// find by name
-	 	mongoDBModule.findRestaurantsByName(nom, page, pagesize, function(data) {
+	 	mongoDBModule.findVideosByName(nom, page, pagesize, function(data) {
 	 		var objdData = {
 	 			msg:"restaurant recherchés par nom avec succès",
 	 			data: data
@@ -212,7 +214,7 @@ app.get('/api/restaurants', function(req, res) {
 		 console.log(data);
     } else {
     	// find normal
-	 	mongoDBModule.findRestaurants(page, pagesize, function(data) {
+	 	mongoDBModule.findVideos(page, pagesize, function(data) {
 	 		var objdData = {
 	 			msg:"restaurant recherchés avec succès",
 	 			data: data
@@ -252,46 +254,7 @@ var TOKEN_DIR = (process.env.HOME || process.env.HOMEPATH ||
 var TOKEN_PATH = TOKEN_DIR + 'youtube-nodejs-quickstart.json';
 
 
-var cpt = 0;
 
-
-function callAPIYoutube(dataVideo, callback) 
-{
-
-  videosInfo = [];
-  // Load client secrets from a local file.
-  fs.readFile('client_secret.json', function processClientSecrets(err, content) {
-    if (err) {
-      console.log('Error loading client secret file: ' + err);
-      return;
-    }
-  });
-    // Authorize a client with the loaded credentials, then call the YouTube API.
-    //authorize(JSON.parse(content), getChannel);
-    if (cpt < dataVideo.length) {
-        
-      var idVideo = dataVideo[cpt].url.split('/')[4];
-      fetchVideoInfo(idVideo).then(function (videoInfo) {
-        //console.log(videoInfo.title);
-        videosInfo.push(videoInfo);
-        //console.log(videosInfo);
-        callAPIYoutube(dataVideo);
-      });
-      cpt++;
-    }
-
-    //callback("yoloooooo");
-    
-
-
-    //getVideoInfos(idVideo)
-
-
-    //authorize(JSON.parse(content), getChannel);
-    //authorize(JSON.parse(content), videosGetRating);
-    /*authorize(JSON.parse(content), {'params': {'id': 'Ks-_Mh1QhMc,c0KYU2j0TM4,eIho2S0ZahI',
-                  'onBehalfOfContentOwner': ''}}, videosGetRating);*/
-  }
 
 
 /**
