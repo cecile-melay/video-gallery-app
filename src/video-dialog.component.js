@@ -78,7 +78,7 @@ export default class VideoDialog extends React.Component {
             onRequestClose={() => this.handleClose(false)}
           >  
            <p><b>{this.state.video.titleVideo}</b></p>
-           <iframe title="video-youtube" width="100%" height="315" src={this.state.video.embedURL} frameBorder="0" allow="autoplay; encrypted-media" allowFullScreen></iframe>
+           <iframe title="video-youtube" width="100%" height="315" src={this.state.video.embedURL} frameBorder="0" allow="encrypted-media" allowFullScreen></iframe>
            <p dangerouslySetInnerHTML={ {__html: this.state.video.description } }   style={{"overflow":"hidden","textOverflow":"ellipsis","whiteSpace":"nowrap","width":"500px"}}  />
            <p><b>Genre :</b> {this.state.video.genre}</p>
            <p><b>Channel :</b> {this.state.video.owner}</p>

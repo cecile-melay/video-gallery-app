@@ -91,11 +91,17 @@ export default class AddVideoDialog extends React.Component {
             onRequestClose={this.handleClose}        
           >
             <form onSubmit={this.handleSubmit}>
-                <TextField type="text" value={this.state.url} onChange={this.handleChangeUrl} hintText="URL de la vidéo avec (lien embed)"  /><br/>
+                <TextField  style={styles.textfield} type="text" value={this.state.url} onChange={this.handleChangeUrl} hintText="URL de la vidéo avec (lien embed)"  /><br/>
             </form>            
           </Dialog>
         </div>
       );
+    }
+  }
+
+  const styles = {
+    textfield: {
+      width:'100%',
     }
   }
 

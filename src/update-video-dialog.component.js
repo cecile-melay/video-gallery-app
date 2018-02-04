@@ -128,11 +128,17 @@ export default class UpdateVideoDialog extends React.Component {
           >
             <form onSubmit={this.handleSubmit}>
 
-                <TextField id="text-field-controlled-url" value={this.state.url} onChange={this.handleChangeUrl} /><br/>
+                <TextField style={styles.textfield} id="text-field-controlled-url" value={this.state.url} onChange={this.handleChangeUrl} /><br/>
             </form>            
           </Dialog>
         </div>
       );
+    }
+  }
+
+  const styles = {
+    textfield: {
+      width:'100%',
     }
   }
 
