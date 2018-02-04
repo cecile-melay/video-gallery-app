@@ -29,7 +29,9 @@ Le Crud réalisé permet de :
 L'application utilise les modules nodeJS google-auth-library, googleapis et youtubeinfo pour authentifier l'accès à l'API via le fichier client_secret.json et obtenir le titre, la description (et autres) des vidéos en fonction de leurs ID à l'aide d'une fonction récursive. Ces informations sont retournées au ReactJS qui les affiche dans le composant principal App puis les envoies également dans ses composants enfants. 
 
 ### Perspective d'amélioration
-Trouver un moyen de diminuer le temps de chargement des appels vers l'api Youtube.
+Les points d'amélioration que nous aurions pu réaliser :
+- Trouver un moyen de diminuer le temps de chargement des appels vers l'api Youtube,
+- Ajouter la pagination.
 
 # Sujet
 
