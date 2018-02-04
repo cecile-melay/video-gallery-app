@@ -33,12 +33,7 @@ export default class VideoDialog extends React.Component {
         video : el,
         open: true});
 
-      //get data of video with deep 2 for access in the render method
-      if (el.details.description) {
-        this.details.setState({
-         description : el.details.description
-        });
-      }
+
     };
   
     /**

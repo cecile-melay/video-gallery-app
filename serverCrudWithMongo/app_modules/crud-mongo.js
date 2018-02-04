@@ -76,10 +76,7 @@ exports.createVideo = function(formData, callback) {
 	    if(!err) {
 	 
 			let toInsert = {
-				name : formData.name,
-				user : formData.user, 
-				url : formData.url, 
-				details : formData.details,  
+				url : formData.url 
 			};
 			console.dir(JSON.stringify(toInsert));
 		    db.collection("videos")
@@ -118,10 +115,7 @@ exports.updateVideo = function(id, formData, callback) {
 		if(!err) {
             let myquery = { "_id": ObjectId(id)};
 	        let newvalues = {
-	        	name : formData.name,
-				user : formData.user, 
 				url : formData.url, 
-				details : formData.details, 
 			};
 			db.collection("videos")
 			.updateOne(myquery, newvalues, function(err, result) {

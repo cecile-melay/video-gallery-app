@@ -4,7 +4,6 @@ const port     = process.env.PORT || 8080;
 const server   = require('http').Server(app);
 // pour les formulaires multiparts
 var multer = require('multer');
-var sanitizeHtml = require('sanitize-html');
 var multerData = multer();
 
 const mongoDBModule = require('./app_modules/crud-mongo');
@@ -98,7 +97,7 @@ app.get('/api/videos', function(req, res) {
         data: data,
         videosInfos : videosInfos
      }
-      res.send(JSON.stringify( objdData)); 
+      res.send(JSON.stringify(objdData)); 
     });
  		
  	}); 
@@ -115,8 +114,10 @@ callAPIYoutube = function(dataVideo, callback) {
     } else {
       // Authorize a client with the loaded credentials, then call the YouTube API.
       //authorize(JSON.parse(content), getChannel);
-      if (cpt < dataVideo.length) {      
-      var idVideo = dataVideo[cpt].url.split('/')[4];
+      if (cpt < dataVideo.length) {     
+    
+      var idVideo = dataVideo[cpt].url.split('v=')[1];
+      console.log(idVideo);
       fetchVideoInfo(idVideo).then(function (videoInfo) {
         videosInfo.push(videoInfo);
         callAPIYoutube(dataVideo, callback);

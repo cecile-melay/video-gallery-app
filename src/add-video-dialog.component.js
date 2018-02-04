@@ -13,10 +13,7 @@ export default class AddVideoDialog extends React.Component {
     this.state = {
       open: false,
       video: [],
-      details: {description:''},
-      name:'Flume - Never Be Like You feat. Kai',
-      user:'Cécile',
-      url:'https://www.youtube.com/embed/Ly7uj0JwgKg',
+      url:'https://www.youtube.com/watch?v=iu3qoIsGzUM',
       description:'',
     };
   }
@@ -32,7 +29,6 @@ export default class AddVideoDialog extends React.Component {
       this.setState({
         video : el,
         //get data of video with deep 2 for access in the render method
-        details : el.details,
         open: true});
     };
   
@@ -41,6 +37,12 @@ export default class AddVideoDialog extends React.Component {
      */
     handleClose = () => {
       this.setState({open: false});
+    };
+
+    handleChangeUrl = (event) => {
+      this.setState({
+        url: event.target.value,
+      });
     };
 
     /**
@@ -55,9 +57,6 @@ export default class AddVideoDialog extends React.Component {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          name: this.state.name,
-          details: {description:this.state.description},
-          user:this.state.user,
           url: this.state.url,
         })
       })
@@ -92,10 +91,7 @@ export default class AddVideoDialog extends React.Component {
             onRequestClose={this.handleClose}        
           >
             <form onSubmit={this.handleSubmit}>
-                <TextField type="text" defaultValue={this.state.name}  hintText="Nom"  /><br/>
-                <TextField type="text" defaultValue={this.state.description}  hintText="Description" /><br/>
-                <TextField type="text" defaultValue={this.state.user}  hintText="Votre nom ou pseudo" /><br/>
-                <TextField type="text" defaultValue={this.state.url}  hintText="URL de la vidéo avec (lien embed)"  /><br/>
+                <TextField type="text" value={this.state.url} onChange={this.handleChangeUrl} hintText="URL de la vidéo avec (lien embed)"  /><br/>
             </form>            
           </Dialog>
         </div>

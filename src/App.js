@@ -244,7 +244,7 @@ class App extends Component {
               {this.state.videos.map((el, index) => (
               <GridTile
                 key={el._id}
-                title={el.name}
+                title={el.titleVideo}
                 actionIcon={<IconButton><StarBorder color="rgb(0, 188, 212)" /></IconButton>}
                 titleStyle={styles.titleStyle}
                 actionPosition="left"

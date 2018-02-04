@@ -15,9 +15,6 @@ export default class UpdateVideoDialog extends React.Component {
     state = {
       open: false,
       video: [],
-      details: [],
-      name:'',
-      user:'',
       url:'',
       id:0,
     };
@@ -33,13 +30,8 @@ export default class UpdateVideoDialog extends React.Component {
       this.setState({
         id : el._id,
         video : el,
-        name : el.name,
-        user : el.user,
         url : el.url,
         
-        //get data of video with deep 2 for access in the render method
-        details : el.details,
-        description : el.details.description,
         
         open: true});
     };
@@ -56,7 +48,7 @@ export default class UpdateVideoDialog extends React.Component {
      * send data to the serverCrudWithMongo.js
      */
     handleUpdate = () => {
-      console.log(this.state.name);
+      console.log(this.state.id);
       fetch('http://localhost:8080/api/updatevideo/'+this.state.id, {
         method: 'PUT',
         headers: {
@@ -65,9 +57,6 @@ export default class UpdateVideoDialog extends React.Component {
         },
         mode: 'cors',    
         body: JSON.stringify({
-          name: this.state.name,
-          details: {description:this.state.description},
-          user:this.state.user,
           url: this.state.url,
         })
       })
@@ -82,7 +71,7 @@ export default class UpdateVideoDialog extends React.Component {
      * Delete video by its id 
      */
     handleDelete = () => {
-      console.log(this.state.name);
+      console.log(this.state.id);
       fetch('http://localhost:8080/api/deletevideo/'+this.state.id, {
         method: 'DELETE',
         headers: {
@@ -91,9 +80,6 @@ export default class UpdateVideoDialog extends React.Component {
         },
         mode: 'cors',    
         body: JSON.stringify({
-          name: this.state.name,
-          details: {description:this.state.description},
-          user:this.state.user,
           url: this.state.url,
         })
   
@@ -109,21 +95,6 @@ export default class UpdateVideoDialog extends React.Component {
   /**
    * Handle the double data binding
    */
-  handleChangeName = (event) => {
-    this.setState({
-      name: event.target.value,
-    });
-  };
-  handleChangeDescription = (event) => {
-    this.setState({
-      description: event.target.value,
-    });
-  };
-  handleChangeUser = (event) => {
-    this.setState({
-      user: event.target.value,
-    });
-  };
   handleChangeUrl = (event) => {
     this.setState({
       url: event.target.value,
@@ -159,9 +130,7 @@ export default class UpdateVideoDialog extends React.Component {
             onRequestClose={this.handleClose}        
           >
             <form onSubmit={this.handleSubmit}>
-                <TextField id="text-field-controlled-name" value={this.state.name} onChange={this.handleChangeName}/>
-                <TextField id="text-field-controlled-description" value={this.state.description} onChange={this.handleChangeDescription} /><br/>
-                <TextField id="text-field-controlled-user" value={this.state.user} onChange={this.handleChangeUser}/><br/>
+
                 <TextField id="text-field-controlled-url" value={this.state.url} onChange={this.handleChangeUrl} /><br/>
             </form>            
           </Dialog>
