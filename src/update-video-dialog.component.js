@@ -23,7 +23,6 @@ export default class UpdateVideoDialog extends React.Component {
      * Open Dialog
      */
     handleOpen = (el) => {
-      console.log(el);
       this.setState({
         
       })
@@ -48,7 +47,6 @@ export default class UpdateVideoDialog extends React.Component {
      * send data to the serverCrudWithMongo.js
      */
     handleUpdate = () => {
-      console.log(this.state.id);
       fetch('http://localhost:8080/api/updatevideo/'+this.state.id, {
         method: 'PUT',
         headers: {
@@ -71,7 +69,6 @@ export default class UpdateVideoDialog extends React.Component {
      * Delete video by its id 
      */
     handleDelete = () => {
-      console.log(this.state.id);
       fetch('http://localhost:8080/api/deletevideo/'+this.state.id, {
         method: 'DELETE',
         headers: {

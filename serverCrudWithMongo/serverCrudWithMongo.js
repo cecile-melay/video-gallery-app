@@ -78,6 +78,9 @@ app.get('/api/connection', function(req, res) {
    });
 });
 
+var cpt = 0;
+var videosInfo = [];
+
 // On va rÃ©cupÃ©rer des restaurants par un GET (standard REST) 
 // cette fonction d'API peut accepter des paramÃ¨tres
 // pagesize = nombre de restaurants par page
@@ -90,7 +93,9 @@ app.get('/api/videos', function(req, res) {
     // idem si present on prend la valeur, sinon 10
     let pagesize = parseInt(req.query.pagesize || 8);
 
- 	mongoDBModule.findVideos(page, pagesize, function(data) {    
+ 	mongoDBModule.findVideos(page, pagesize, function(data) {  
+    cpt = 0;
+    videosInfo = [];
     callAPIYoutube(data , function(videosInfos) {
       var objdData = {
         msg:"Restaurant recherchés avec succès",
@@ -103,8 +108,7 @@ app.get('/api/videos', function(req, res) {
  	}); 
 }); 
 
-var cpt = 0;
-var videosInfo = [];
+
 
 callAPIYoutube = function(dataVideo, callback) { 
   // Load client secrets from a local file.
@@ -117,7 +121,6 @@ callAPIYoutube = function(dataVideo, callback) {
       if (cpt < dataVideo.length) {     
     
       var idVideo = dataVideo[cpt].url.split('v=')[1];
-      console.log(idVideo);
       fetchVideoInfo(idVideo).then(function (videoInfo) {
         videosInfo.push(videoInfo);
         callAPIYoutube(dataVideo, callback);

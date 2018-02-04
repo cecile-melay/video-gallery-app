@@ -63,7 +63,6 @@ class App extends Component {
     fetch(url)
     .then((response) => response.json())
     .then((responseJson) => {
-      console.log(responseJson);
       let data = [];
       let videosImg = [] 
       for (var i=0; i < responseJson.data.length; i++) {
@@ -86,15 +85,13 @@ class App extends Component {
           videosImg:videosImg,
           input : ""
       });
-      console.log(data);
+      return 1;
+
     })
     .catch((error) => {
       console.error(error);
+      return error;
     });      
-  }
-
-  test1() {
-    console.log('test');
   }
 
   /**
