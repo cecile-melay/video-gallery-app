@@ -21,13 +21,15 @@ Le Crud réalisé permet de :
 - Read : il est possible des lire les vidéos en cliquant sur l'image. Un dialog s'ouvre, affiche la vidéo en autoplay = true
 //TODO finir le read en ajoutant la pagination
 
-- Update : il est possible de modifier une vidéo et ses informations en cliquant sur le bouton modifier depuis le premier dialog qui effecue le read qui ouvre un autre dialog qui contient une formulaire de modification de vidéo
-//TODO finir l'update en rendant possible la modification des détails
+- Update : il est possible de modifier l'url d'une vidéo en cliquant sur le bouton modifier depuis le premier dialog qui effecue le read qui ouvre un autre dialog qui contient une formulaire de modification de vidéo
 
 - Delete : il est possible de supprimer une vidéo et ses informations en cliquant sur le bouton modifier depuis le premier dialog qui effecue le read puis de cliquer sur le bouton suprimer
 
 ### Description de l'utilisation de l'API Youtube
-//TODO
+L'application utilise les modules nodeJS google-auth-library, googleapis et youtubeinfo pour authentifier l'accès à l'API via le fichier client_secret.json et obtenir le titre, la description (et autres) des vidéos en fonction de leurs ID à l'aide d'une fonction récursive. Ces informations sont retournées au ReactJS qui les affiche dans le composant principal App puis les envoies également dans ses composants enfants. 
+
+### Perspective d'amélioration
+Trouver un moyen de diminuer le temps de chargement des appels vers l'api Youtube.
 
 # Sujet
 
