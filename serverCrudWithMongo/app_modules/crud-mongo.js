@@ -19,8 +19,8 @@ exports.findVideos = function(page, pagesize, callback) {
         if(!err){
             db.collection('videos')
             .find()
-            // .skip(page*pagesize)
-            // .limit(pagesize)
+            .skip(page*pagesize)
+            .limit(pagesize)
             .toArray()
             .then(arr => callback(arr));
         }

@@ -91,20 +91,22 @@ app.get('/api/videos', function(req, res) {
 	// Si prÃ©sent on prend la valeur du param, sinon 1
     let page = parseInt(req.query.page || 1);
     // idem si present on prend la valeur, sinon 10
-    let pagesize = parseInt(req.query.pagesize || 8);
+    let pagesize = parseInt(req.query.pagesize || 4);
 
  	mongoDBModule.findVideos(page, pagesize, function(data) {  
     cpt = 0;
     videosInfo = [];
-    callAPIYoutube(data , function(videosInfos) {
-      var objdData = {
-        msg:"Restaurant recherchés avec succès",
-        data: data,
-        videosInfos : videosInfos
-     }
-      res.send(JSON.stringify(objdData)); 
-    });
- 		
+    console.log(data);
+    if (data.length > 0) {
+      callAPIYoutube(data , function(videosInfos) {
+        var objdData = {
+          msg:"Restaurant recherchés avec succès",
+          data: data,
+          videosInfos : videosInfos
+      }
+        res.send(JSON.stringify(objdData)); 
+      });
+    }	
  	}); 
 }); 
 
@@ -122,6 +124,7 @@ callAPIYoutube = function(dataVideo, callback) {
     
       var idVideo = dataVideo[cpt].url.split('v=')[1];
       fetchVideoInfo(idVideo).then(function (videoInfo) {
+        console.log(idVideo);
         videosInfo.push(videoInfo);
         callAPIYoutube(dataVideo, callback);
       });
@@ -200,14 +203,14 @@ app.get('/api/restaurantscount', function(req, res) {
 // page = no de la page
 // Oui, on va faire de la pagination, pour afficher
 // par exemple les restaurants 10 par 10
-app.get('/api/restaurants', function(req, res) { 
+app.get('/api/videos', function(req, res) { 
 	// Si présent on prend la valeur du param, sinon 1
     let page = parseInt(req.query.page || 0);
     // idem si present on prend la valeur, sinon 10
-    let pagesize = parseInt(req.query.pagesize || 8);
-    let nom = req.query.nom;
+    let pagesize = parseInt(req.query.pagesize || 4);
+    let id = req.query._id;
 
-	if(nom) {
+	if(id) {
     	// find by name
 	 	mongoDBModule.findVideosByName(nom, page, pagesize, function(data) {
 	 		var objdData = {

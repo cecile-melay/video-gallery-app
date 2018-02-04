@@ -19,20 +19,26 @@ class App extends Component {
 
   constructor(props) {
     super(props);
+     
+    this.state = {
+      videos:[],
+      videosImg:[],
+      input : "",
+      pageState : 0,
+    };
 
     this.loadData();
     this.loadData = this.loadData.bind(this);
     
-    this.state = {
-      videos : [],
-      open: false,
-      pageState : 0,
-      selected: 1,
-      input: "",
-      videoWasDeleted: false,
-      videosData: [],
-      videosImg: []
-    };
+    // this.state = {
+    //   videos : [],
+    //   open: false,
+    //   selected: 1,
+    //   input: "",
+    //   videoWasDeleted: false,
+    //   videosData: [],
+    //   videosImg: []
+    // };
   }
 
   /**
@@ -58,7 +64,10 @@ class App extends Component {
    * Get data from the ServerCrudWithMongo
    */
   loadData() {
-    let url = "http://localhost:8080/api/videos";  
+    this.setState({
+      videos:[],
+    });
+    let url = "http://localhost:8080/api/videos?page="+this.state.pageState;  
     //document.getElementById("btnPrevious").disabled = true;      
     fetch(url)
     .then((response) => response.json())
@@ -138,28 +147,47 @@ class App extends Component {
    * TODO
    */
   prevPage() {
-    console.log(this.state.pageState);
+    this.setState({
+      videos:[],
+    });
     //app7.updateButtons();  
-    if (this.state.pageState > 1) {             
+    if (this.state.pageState >= 1) {             
         this.state.pageState--;
         this.state.selected = this.state.pageState;
-        let url = "http://localhost:8080/api/restaurants?page="+this.state.pageState;  
+        let url = "http://localhost:8080/api/videos?page="+this.state.pageState;  
         //document.getElementById("btnPrevious").disabled = true;      
         fetch(url)
         .then((response) => response.json())
         .then((responseJson) => {
           let data = [];
+          let videosImg = [] 
           for (var i=0; i < responseJson.data.length; i++) {
-             data.push(responseJson.data[i].name);
+            // for each video get info for youtube API
+             data.push(responseJson.data[i]);
+             data[i].videoImg = responseJson.videosInfos[i].thumbnailUrl
+             data[i].titleVideo = responseJson.videosInfos[i].title
+             data[i].owner = responseJson.videosInfos[i].owner
+             data[i].embedURL = responseJson.videosInfos[i].embedURL
+             data[i].genre = responseJson.videosInfos[i].genre
+             data[i].description = responseJson.videosInfos[i].description
+             data[i].datePublished = responseJson.videosInfos[i].datePublished
+             data[i].duration = responseJson.videosInfos[i].duration
+             data[i].views = responseJson.videosInfos[i].views
+    
+             
           }
           this.setState({
               videos:data,
+              videosImg:videosImg,
               input : ""
           });
+          return 1;
+    
         })
         .catch((error) => {
           console.error(error);
-        });    
+          return error;
+        });      
     }
   }
 
@@ -167,24 +195,44 @@ class App extends Component {
    * TODO
    */
   nextPage() {
+    this.setState({
+      videos:[],
+    });
     this.state.pageState++;
-    let url = "http://localhost:8080/api/restaurants?page="+this.state.pageState;  
+    let url = "http://localhost:8080/api/videos?page="+this.state.pageState;  
     //document.getElementById("btnPrevious").disabled = true;      
     fetch(url)
     .then((response) => response.json())
     .then((responseJson) => {
       let data = [];
+      let videosImg = [] 
       for (var i=0; i < responseJson.data.length; i++) {
-         data.push(responseJson.data[i].name);
+        // for each video get info for youtube API
+         data.push(responseJson.data[i]);
+         data[i].videoImg = responseJson.videosInfos[i].thumbnailUrl
+         data[i].titleVideo = responseJson.videosInfos[i].title
+         data[i].owner = responseJson.videosInfos[i].owner
+         data[i].embedURL = responseJson.videosInfos[i].embedURL
+         data[i].genre = responseJson.videosInfos[i].genre
+         data[i].description = responseJson.videosInfos[i].description
+         data[i].datePublished = responseJson.videosInfos[i].datePublished
+         data[i].duration = responseJson.videosInfos[i].duration
+         data[i].views = responseJson.videosInfos[i].views
+
+         
       }
       this.setState({
           videos:data,
+          videosImg:videosImg,
           input : ""
       });
+      return 1;
+
     })
     .catch((error) => {
       console.error(error);
-    });      
+      return error;
+    });         
   }
 
    /**
@@ -255,6 +303,10 @@ class App extends Component {
               ))}
             </GridList>
           </div>
+
+          <RaisedButton label="Précédent" primary={true}  onClick={this.prevPage.bind(this)} />
+          <RaisedButton style={styles.marginLeft} label="Suivant" primary={true}  onClick={this.nextPage.bind(this)} />  
+
                
         </div>
       </div>
@@ -278,10 +330,6 @@ class App extends Component {
 
     </MuiThemeProvider>);
   }
-
- /*//TODO Pagination 
- <RaisedButton label="Précédent" primary={true}  onClick={this.prevPage.bind(this)} />
-  <RaisedButton style={styles.marginLeft} label="Suivant" primary={true}  onClick={this.nextPage.bind(this)} /> */  
 
 //End of App
 }

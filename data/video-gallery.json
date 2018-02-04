@@ -1,32 +1,36 @@
-{"details": {"description": "Credits lyric video: Animation: Peter Spence7", "duration": 3.28, "youtuber": "SeebVEVO", "like": "38000"}, 
-"url": "https://www.youtube.com/watch?v=cW7yK0fCl4Y&index=11&list=LLPFdgZNuD2vAdlvQ2bHJ8pg",
-"image":"",
-"youtube_date": "14/01/2018", 
-"date": "14/10/2016",
-"user": "Cécile",
-"name": "Seeb - What Do You Love (Lyric Video) ft. Jacob Banks", 
-"video_id": "101"}
-{"details": {"description": "Credits lyric video: Animation: Peter Spence7", "duration": 3.28, "youtuber": "SeebVEVO", "like": "38000"}, 
-"url": "https://www.youtube.com/watch?v=cW7yK0fCl4Y&index=11&list=LLPFdgZNuD2vAdlvQ2bHJ8pg",
-"image":"",
-"youtube_date": "14/01/2018", 
-"date": "14/10/2016",
-"user": "Cécile",
-"name": "Seeb - What Do You Love (Lyric Video) ft. Jacob Banks", 
-"video_id": "102"}
-{"details": {"description": "Credits lyric video: Animation: Peter Spence7", "duration": 3.28, "youtuber": "SeebVEVO", "like": "38000"}, 
-"url": "https://www.youtube.com/watch?v=cW7yK0fCl4Y&index=11&list=LLPFdgZNuD2vAdlvQ2bHJ8pg",
-"image":"",
-"youtube_date": "14/01/2018", 
-"date": "14/10/2016",
-"user": "Cécile",
-"name": "Seeb - What Do You Love (Lyric Video) ft. Jacob Banks", 
-"video_id": "103"}
-{"details": {"description": "Credits lyric video: Animation: Peter Spence7", "duration": 3.28, "youtuber": "SeebVEVO", "like": "38000"}, 
-"url": "https://www.youtube.com/watch?v=cW7yK0fCl4Y&index=11&list=LLPFdgZNuD2vAdlvQ2bHJ8pg",
-"image":"",
-"youtube_date": "14/01/2018", 
-"date": "14/10/2016",
-"user": "Cécile",
-"name": "Seeb - What Do You Love (Lyric Video) ft. Jacob Banks", 
-"video_id": "104"}
+{
+    "_id" : ObjectId("5a773f3c0478242c603bc29b"),
+    "url" : "https://www.youtube.com/watch?v=iu3qoIsGzUM"
+}
+{
+    "_id" : ObjectId("5a774d40133fdc360832aa34"),
+    "url" : "https://www.youtube.com/watch?v=xPZigWFyK2o"
+}
+{
+    "_id" : ObjectId("5a774d49133fdc360832aa35"),
+    "url" : "https://www.youtube.com/watch?v=2_PxZdff71g"
+}
+{
+    "_id" : ObjectId("5a774d4e133fdc360832aa36"),
+    "url" : "https://www.youtube.com/watch?v=YZ_j3s5xj8I"
+}
+{
+    "_id" : ObjectId("5a774d5f133fdc360832aa37"),
+    "url" : "https://www.youtube.com/watch?v=cK5zMDVGF2Y"
+}
+{
+    "_id" : ObjectId("5a774d65133fdc360832aa38"),
+    "url" : "https://www.youtube.com/watch?v=mMLTnE5Sv6U"
+}
+{
+    "_id" : ObjectId("5a774d6a133fdc360832aa39"),
+    "url" : "https://www.youtube.com/watch?v=0jrnwKtds6w"
+}
+{
+    "_id" : ObjectId("5a774d73133fdc360832aa3a"),
+    "url" : "https://www.youtube.com/watch?v=6Yj31YCa3Xw"
+}
+{
+    "_id" : ObjectId("5a774d78133fdc360832aa3b"),
+    "url" : "https://www.youtube.com/watch?v=QlT-sJLfCPU"
+}
