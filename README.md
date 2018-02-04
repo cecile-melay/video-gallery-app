@@ -30,7 +30,8 @@ L'application utilise les modules nodeJS google-auth-library, googleapis et yout
 ### Perspective d'amélioration
 Les points d'amélioration que nous aurions pu réaliser :
 - Trouver un moyen de diminuer le temps de chargement des appels vers l'api Youtube,
-- Ajouter la pagination.
+- Ajouter un compteur pour connaître le nombre de page,
+- Factoriser le code
 
 # Sujet
 
