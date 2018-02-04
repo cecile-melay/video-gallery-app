@@ -18,8 +18,7 @@ Le Crud réalisé permet de :
 
 - Create : il est possible d'ajouter une vidéo via un formulaire dans un dialog
 
-- Read : il est possible des lire les vidéos en cliquant sur l'image. Un dialog s'ouvre, affiche la vidéo en autoplay = true
-//TODO finir le read en ajoutant la pagination
+- Read : l'application affiche 4 vidéos. Il est possible de consulté les autres vidéos en cliquant sur les boutons suivant ou précédent. Pour lire les vidéos, il faut en cliquer sur l'image. Un dialog s'ouvre et affiche la vidéo depuis la balise HTML <iframe>. 
 
 - Update : il est possible de modifier l'url d'une vidéo en cliquant sur le bouton modifier depuis le premier dialog qui effecue le read qui ouvre un autre dialog qui contient une formulaire de modification de vidéo
 
